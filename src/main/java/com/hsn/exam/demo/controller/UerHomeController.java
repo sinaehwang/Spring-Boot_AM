@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UerHomeController {
+	private int count = 0;
+	
 	@RequestMapping("/usr/home/main")
 	@ResponseBody
 	public String showMain() {
@@ -22,6 +24,14 @@ public class UerHomeController {
 	@ResponseBody
 	public String showMain3() {
 		return("잘가");
+	}
+	
+	@RequestMapping("/usr/home/main4")
+	@ResponseBody
+	public int showMain4() {
+		
+		return count++; //후위연산자로 count값먼저 반환후 +1이기 때문에 0부터 시작됨
+
 	}
 
 	
