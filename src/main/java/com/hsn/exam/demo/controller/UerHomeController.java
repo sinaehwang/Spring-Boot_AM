@@ -6,40 +6,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UerHomeController {
-	private int count = 0;
+	private int count = -1;
 	
-	@RequestMapping("/usr/home/main")
+	@RequestMapping("/usr/home/getCount")
 	@ResponseBody
-	public String showMain() {
-		return("안녕");
-	}
-	
-	@RequestMapping("/usr/home/main2")
-	@ResponseBody
-	public String showMain2() {
-		return("반갑");
-	}
-
-	@RequestMapping("/usr/home/main3")
-	@ResponseBody
-	public String showMain3() {
-		return("잘가");
-	}
-	
-	@RequestMapping("/usr/home/main4")
-	@ResponseBody
-	public int showMain4() {
+	public int getCount() {
 		
-		return count++; //후위연산자로 count값먼저 반환후 +1이기 때문에 0부터 시작됨
+		return count; //후위연산자로 count값먼저 반환후 +1이기 때문에 0부터 시작됨
 
 	}
 
-	@RequestMapping("/usr/home/main5")
+	@RequestMapping("/usr/home/doSetCount") //액션
 	@ResponseBody
-	public String showMain5() {
-		count =0 ;
+	public String doSetCount(int count) {//카운트를 파라미터로 사용
+		this.count = count;
 		
-		return "count의 값을 0으로 초기화";
+		return "count의 값을 "+this.count+"으로 초기화"; //파라미터로 입력받은값이 나타남
 
 	}
 	
