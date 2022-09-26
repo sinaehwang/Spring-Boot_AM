@@ -30,26 +30,30 @@ public class UsrArticleController {
 			String title = "제목"+i;
 			String body = "내용"+i;
 			
-			Article article = new Article(id, title, body);
-			
-			articles.add(article);
-			lastArticleId=id;
-			
+			writeArticle(title, body);
 		}
 
 	   }
 	
+	private Article writeArticle(String title, String body) {
+		int id = lastArticleId+1;
+
+		Article article = new Article(id, title, body);
+		
+		articles.add(article);
+		lastArticleId=id;
+		
+		return article;
+	}
 
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(String title, String body) {
-		int id = lastArticleId + 1;
-		Article article = new Article(id, title, body);
+		
+		Article article = writeArticle(title, body);
 
-		articles.add(article);
-		lastArticleId = id;
+				return article;
 
-		return article;
 	}
 	
 	
@@ -59,13 +63,9 @@ public class UsrArticleController {
 		
 	      return articles;
 	   }
-
 	
 
 
-	
-
-	
 
 	
 	
