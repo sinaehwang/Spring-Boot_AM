@@ -18,7 +18,27 @@ public class UsrArticleController {
 	public UsrArticleController() {
 		lastArticleId = 0;
 		articles = new ArrayList<>();
+		
+		makeTest();
+		
 	}
+	
+	private void makeTest() {
+
+		for(int i=1; i<=10; i++) {
+			int id = lastArticleId+1;
+			String title = "제목"+i;
+			String body = "내용"+i;
+			
+			Article article = new Article(id, title, body);
+			
+			articles.add(article);
+			lastArticleId=id;
+			
+		}
+
+	   }
+	
 
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
@@ -32,12 +52,21 @@ public class UsrArticleController {
 		return article;
 	}
 	
+	
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
 	public List<Article> getArticles() {
 		
 	      return articles;
 	   }
+
+	
+
+
+	
+
+	
+
 	
 	
 }
