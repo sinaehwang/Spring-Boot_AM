@@ -1,76 +1,22 @@
 package com.hsn.exam.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hsn.exam.demo.service.ArticleService;
 import com.hsn.exam.demo.vo.Article;
 
 @Controller
 public class UsrArticleController {
 
 	//인스턴스변수
-	private int lastArticleId;
-	private List<Article> articles;
-
-	public UsrArticleController() {
-		lastArticleId = 0;
-		articles = new ArrayList<>();
-		
-		makeTest();
-		
-	}
-	//서비스메서드
-	private void makeTest() {
-
-		for(int i=1; i<=10; i++) {
-			int id = lastArticleId+1;
-			String title = "제목"+i;
-			String body = "내용"+i;
-			
-			writeArticle(title, body);
-		}
-
-	   }
+	@Autowired //new ArticleService 객체를 만든거나 마찬가지(서비스와 컨트롤러를 연결해준다)
 	
-	private Article writeArticle(String title, String body) {
-		int id = lastArticleId+1;
-
-		Article article = new Article(id, title, body);
-		
-		articles.add(article);
-		lastArticleId=id;
-		
-		return article;
-	}
-	
-	private Article getArticle(int id) {
-		for (Article article : articles) {
-			if (article.getId() == id) {
-				return article;
-			}
-		}
-
-		return null;
-	}
-	
-	private void deleteArticle(int id) {
-		Article article = getArticle(id);
-
-		articles.remove(article);
-	}
-	
-	private void modifyArticle(int id,String title, String body) {
-		
-		Article article = getArticle(id);
-		article.setTitle(title);
-		article.setBody(body);
-				
-	}
-	
+	private ArticleService articleService;
 	
 
 	//액션메서드
@@ -78,7 +24,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public Article doAdd(String title, String body) {
 		
-		Article article = writeArticle(title, body);
+		Article article = articleService.writeArticle(title, body);
 
 				return article;
 
@@ -95,7 +41,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
-		Article article = getArticle(id);
+		Article article = articleService.getArticle(id);
 
 		if (article == null) {
 			return id + "번 게시물은 존재하지 않습니다";
@@ -109,7 +55,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public Object doModify(int id,String title, String body) {
-		Article article = getArticle(id);
+		Article article = articleService.getArticle(id);
 
 		if (article == null) {
 			return id + "번 게시물은 존재하지 않습니다";
