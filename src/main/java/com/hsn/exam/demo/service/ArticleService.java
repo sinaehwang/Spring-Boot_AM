@@ -30,7 +30,9 @@ public class ArticleService {
 
 	public Article writeArticle(String title, String body) {
 
-		return articleRepository.writeArticle(title,body);
+		 articleRepository.writeArticle(title,body);
+		 
+		 int id = articleRepository.getLastArticleId();
 	}
 
 	public void deleteArticle(int id) {

@@ -34,3 +34,6 @@ title = '제목3',
 `body` = '내용3';
 
 SELECT *FROM article
+
+#마지막 게시글의 id를 불러옴
+SELECT LAST_INSERT_ID();
