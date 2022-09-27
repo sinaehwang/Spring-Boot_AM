@@ -3,11 +3,11 @@ package com.hsn.exam.demo.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.hsn.exam.demo.vo.Article;
 
-@Service
+@Component //서비스와 구별하기 위해
 public class ArticleRepository {
 	
 	private int lastArticleId;

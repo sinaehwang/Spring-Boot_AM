@@ -2,6 +2,7 @@ package com.hsn.exam.demo.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hsn.exam.demo.repository.ArticleRepository;
@@ -9,11 +10,11 @@ import com.hsn.exam.demo.vo.Article;
 
 @Service
 public class ArticleService {
-	
+	@Autowired//객체생성없이도 연결해줌
 	private ArticleRepository articleRepository;
 
 	// 생성자
-	public ArticleService(ArticleRepository articleRepository) {
+	public ArticleService(ArticleRepository articleRepository) {//생성자 주입
 		
 		this.articleRepository = articleRepository;
 
