@@ -18,7 +18,6 @@ public class ArticleService {
 		
 		this.articleRepository = articleRepository;
 
-		articleRepository.makeTestData();
 	}
 
 	// 서비스메서드
