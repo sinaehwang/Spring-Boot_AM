@@ -62,8 +62,9 @@ loginPw = 'admin',
 `authLevel` = 7,
 `name` = '관리자',
 `nickname` = '관리자',
-cellphoneNum = '01012341234',
-email = 'abcdef@gmail.com';
+cellphoneNum = '01000000000',
+email = 'godvv29756318@gmail.com';
+
 # 회원 테스트 데이터 생성(일반 회원)
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -72,8 +73,8 @@ loginId = 'user1',
 loginPw = 'user1',
 `name` = '사용자1',
 `nickname` = '사용자1',
-cellphoneNum = '01043214321',
-email = 'fedcba@gmail.com';
+cellphoneNum = '01011111111',
+email = 'godvv29756318@gmail.com';
 INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -81,7 +82,7 @@ loginId = 'user2',
 loginPw = 'user2',
 `name` = '사용자2',
 `nickname` = '사용자2',
-cellphoneNum = '01098769876',
-email = 'zxcvbnm@gmail.com';
+cellphoneNum = '0102222222',
+email = 'godvv29756318@gmail.com';
 
 SELECT*FROM `member`;

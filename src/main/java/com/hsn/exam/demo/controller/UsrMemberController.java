@@ -15,12 +15,11 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public String doAdd(String loginId, String loginPw,String name, String nickname,String cellphoneNum, String email) {
+	public void doAdd(String loginId, String loginPw,String name, String nickname,String cellphoneNum, String email) {
 		
 		memberservice.doJoin(loginId,loginPw,name,nickname,cellphoneNum,email);
 
 		 
-		return "hi";
 	}
 
 
