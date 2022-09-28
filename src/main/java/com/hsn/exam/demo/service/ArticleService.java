@@ -28,11 +28,11 @@ public class ArticleService {
 	}
 		
 
-	public Article writeArticle(String title, String body) {
+	public int writeArticle(String title, String body) {
 
 		 articleRepository.writeArticle(title,body);
 		 
-		 int id = articleRepository.getLastArticleId();
+		return articleRepository.getLastArticleId();
 	}
 
 	public void deleteArticle(int id) {
