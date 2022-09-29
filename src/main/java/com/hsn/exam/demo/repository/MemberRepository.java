@@ -51,4 +51,12 @@ public interface MemberRepository {
 			""")
 	public List<Member> getMembers();
 
+	@Select("""
+			SELECT * FROM `member` 
+			WHERE email=#{email} AND `name`=#{name}
+			""")
+	public Member getMemberByEmailAndName(String email,String name);
+	
+	
+
 }
