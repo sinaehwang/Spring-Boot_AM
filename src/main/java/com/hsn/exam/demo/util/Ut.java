@@ -1,7 +1,5 @@
 package com.hsn.exam.demo.util;
 
-
-
 public class Ut {
 
 	public static boolean empty(Object obj) {

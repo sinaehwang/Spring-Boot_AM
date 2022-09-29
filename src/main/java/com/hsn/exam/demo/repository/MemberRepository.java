@@ -55,7 +55,7 @@ public interface MemberRepository {
 			SELECT * FROM `member` 
 			WHERE email=#{email} AND `name`=#{name}
 			""")
-	public Member getMemberByEmailAndName(String email,String name);
+	public List<Member> getMemberByEmailAndName(String email,String name);
 	
 	
 

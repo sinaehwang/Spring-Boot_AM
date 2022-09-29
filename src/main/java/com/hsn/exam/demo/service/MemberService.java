@@ -24,13 +24,22 @@ public class MemberService {
 		//로그인 아이디중복체크
 		Member foundMember = memberRepository.getMemberByLogId(loginId);
 		
-		//이름+이메일 중복체크
-		foundMember = memberRepository.getMemberByEmailAndName(email,name);
 		
 		if(foundMember!=null) {
 		
 			return id;
 		}
+		
+		//이름+이메일 중복체크
+		List<Member>members = memberRepository.getMemberByEmailAndName(email,name);
+		
+		if(members!=null) {
+			
+			id=-2;
+			
+			return id;
+		}
+		
 		
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNum,email);
 		
