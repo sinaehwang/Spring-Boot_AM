@@ -1,5 +1,7 @@
 package com.hsn.exam.demo.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -21,7 +23,7 @@ public interface MemberRepository {
 			cellphoneNum = #{cellphoneNum},
 			email = #{email}""")
 	
-	public void doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,String email);
+	public void join(String loginId, String loginPw, String name, String nickname, String cellphoneNum,String email);
 
 	@Select("""
 			SELECT LAST_INSERT_ID()
@@ -40,5 +42,13 @@ public interface MemberRepository {
 			WHERE loginId = #{loginId}
 			""")
 	public Member getMemberByLogId(String loginId);
+
+	
+	@Select("""
+			SELECT * FROM `member` 
+			ORDER BY id = #{id} DESC
+			
+			""")
+	public List<Member> getMembers();
 
 }

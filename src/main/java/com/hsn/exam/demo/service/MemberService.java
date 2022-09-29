@@ -1,5 +1,7 @@
 package com.hsn.exam.demo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.hsn.exam.demo.repository.MemberRepository;
@@ -26,7 +28,7 @@ public class MemberService {
 			return id;
 		}
 		
-		memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNum,email);
+		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNum,email);
 		
 		id= memberRepository.getLastMemberId();
 		 
@@ -34,9 +36,17 @@ public class MemberService {
 	}
 
 
-	public Member getMemberbyId(int id) {
+	public Member getMemberById(int id) {
 		
 		return memberRepository.getMemberById(id);
+	}
+
+
+	public List<Member> getMembers() {
+		
+		return memberRepository.getMembers();
+		
+
 	}
 
 	
