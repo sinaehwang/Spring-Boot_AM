@@ -103,13 +103,13 @@ public class UsrMemberController {
 			isLogined = true;
 		}
 		
-		if(isLogined==false) {
-			return ResultData.from("F-3", "이미 로그인상태입니다.");
+		if(isLogined) {
+			return ResultData.from("F-3", "이미 로그아웃상태입니다.");
 		}
 		
-		return null;
-
+		httpSession.removeAttribute("loginedMemberId");
 		
+		return ResultData.from("S-1", "로그아웃되었습니다.");
 		
 	}
 	
