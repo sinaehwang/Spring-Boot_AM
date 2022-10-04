@@ -12,9 +12,7 @@ public class Article {
 	private String title;
 	private String body;
 	private String regDate;
-	private String name;
-	private String nickname;
-	private String cellphoneNum;
-	private String email;
+	private String updateDate;
+	private int memberId;
 	
 }

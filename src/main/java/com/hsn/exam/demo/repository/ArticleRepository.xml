@@ -9,6 +9,7 @@
 		updateDate =
 		NOW(),
 		title = #{title},
+		memberId = #{loginedMemberId},
 		`body` = #{body}
 	</insert>
 
