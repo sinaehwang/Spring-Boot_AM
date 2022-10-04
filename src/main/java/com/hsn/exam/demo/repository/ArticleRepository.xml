@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hsn.exam.demo.repository.ArticleRepository">
-
+<mapper
+	namespace="com.hsn.exam.demo.repository.ArticleRepository">
 	<insert id="writeArticle">
-	INSERT INTO article SET 
-	regDate=NOW(),
-	updateDate = NOW(), 
-	title=#{title},
-	`body`=#{body}
+		INSERT INTO article
+		SET regDate = NOW(),
+		updateDate =
+		NOW(),
+		title = #{title},
+		`body` = #{body}
 	</insert>
-	
+
+	<select id="getArticles" resultType="Article">
+		SELECT *
+		FROM article
+		ORDER BY
+		id DESC
+	</select>
+
 	<select id="getArticle" resultType="Article">
-	SELECT * FROM article 
-	WHERE id = #{id}
+		SELECT *
+		FROM article
+		WHERE id
+		= #{id}
 	</select>
-	
+
 	<delete id="deleteArticle">
-	DELETE FROM article 
-	WHERE id=#{id}
+		DELETE FROM article
+		WHERE id = #{id}
 	</delete>
-	
-	<update id= "modifyArticle">
-	UPDATE article
-	<set>
-	<if test="title != null and title !=''"> <!-- 타이틀자체가 입력이 안된경우, 타이틀의 파라미터값이 비어있는경우 -->
-	title=#{title},
-	</if>
-	<if test="body != null and body !=''">
-	`body`=#{body}
-	</if>
-	</set>
-	WHERE id=#{id}
+
+	<update id="modifyArticle">
+		UPDATE article
+		<set>
+			<if test="title != null and title != ''">title = #{title},</if>
+			<if test="body != null and body != ''">`body` = #{body},</if>
+			updateDate = NOW()
+		</set>
+		WHERE id = #{id}
 	</update>
-	
-	<select id="articles" resultType="Article">
-	SELECT * FROM article 
-	ORDER BY id DESC
-	</select>
-	
-	<select id="getLastArticleId"  resultType="int">
-	SELECT LAST_INSERT_ID()
-	</select>
 
-
+	<select id="getLastInsertId" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
 </mapper>

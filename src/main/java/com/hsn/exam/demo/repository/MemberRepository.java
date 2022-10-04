@@ -16,47 +16,38 @@ public interface MemberRepository {
 			INSERT INTO `member`
 			SET regDate = NOW(),
 			updateDate = NOW(),
-			loginId = #{loginId},	
+			loginId = #{loginId},
 			loginPw = #{loginPw},
 			`name` = #{name},
-			`nickname` = #{nickname},
+			nickname = #{nickname},
 			cellphoneNum = #{cellphoneNum},
-			email = #{email}""")
-	
-	public void join(String loginId, String loginPw, String name, String nickname, String cellphoneNum,String email);
+			email = #{email}
+				""")
+	void join(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email);
+
+	@Select("SELECT LAST_INSERT_ID()")
+	public int getLastInsertId();
 
 	@Select("""
-			SELECT LAST_INSERT_ID()
-			""")
-	public int getLastMemberId();
-	
-	@Select("""
-			SELECT * FROM `member` 
-			WHERE id = #{id}
-			""")
-	public Member getMemberById(int id);
-
-	
-	@Select("""
-			SELECT * FROM `member` 
-			WHERE loginId = #{loginId}
-			""")
-	public Member getMemberByLogId(String loginId);
-
-	
-	@Select("""
-			SELECT * FROM `member` 
-			ORDER BY id = #{id} DESC
-			
-			""")
-	public List<Member> getMembers();
+			SELECT *
+			FROM `member` AS M
+			WHERE M.id = #{id}
+				""")
+	Member getMemberById(int id);
 
 	@Select("""
-			SELECT * FROM `member` 
-			WHERE email=#{email} AND `name`=#{name}
-			""")
-	public List<Member> getMemberByEmailAndName(String email,String name);
-	
-	
+			SELECT *
+			FROM `member` AS M
+			WHERE M.loginId = #{loginId}
+				""")
+	Member getMemberByLoginId(String loginId);
+
+	@Select("""
+			SELECT *
+			FROM `member` AS M
+			WHERE M.name = #{name}
+			AND M.email = #{email}
+				""")
+	Member getMemberByNameAndEmail(String name, String email);
 
 }

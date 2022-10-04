@@ -6,48 +6,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hsn.exam.demo.repository.ArticleRepository;
+import com.hsn.exam.demo.util.Ut;
 import com.hsn.exam.demo.vo.Article;
+import com.hsn.exam.demo.vo.ResultData;
 
 @Service
 public class ArticleService {
-	@Autowired//객체생성없이도 연결해줌
+	@Autowired
 	private ArticleRepository articleRepository;
 
-	// 생성자
-	public ArticleService(ArticleRepository articleRepository) {//생성자 주입
-		
+	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
-
 	}
-
-	// 서비스메서드
 
 	public Article getArticle(int id) {
-		
 		return articleRepository.getArticle(id);
 	}
-		
 
-	public int writeArticle(String title, String body) {
+	public List<Article> getArticles() {
+		return articleRepository.getArticles();
+	}
 
-		 articleRepository.writeArticle(title,body);
-		 
-		return articleRepository.getLastArticleId();
+	public ResultData<Integer> writeArticle(String title, String body) {
+		articleRepository.writeArticle(title, body);
+		int id = articleRepository.getLastInsertId();
+
+		return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다", id), id);
 	}
 
 	public void deleteArticle(int id) {
-		
 		articleRepository.deleteArticle(id);
 	}
 
 	public void modifyArticle(int id, String title, String body) {
-		
 		articleRepository.modifyArticle(id, title, body);
-		
-	}
-
-	public List<Article> articles() {
-		
-		return articleRepository.articles();
 	}
 }

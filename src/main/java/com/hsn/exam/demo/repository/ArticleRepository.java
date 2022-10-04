@@ -9,17 +9,16 @@ import com.hsn.exam.demo.vo.Article;
 @Mapper
 public interface ArticleRepository {
 
-	public Article getArticle(int id);
-	
 	public void writeArticle(String title, String body);
-	
+
+	public Article getArticle(int id);
+
+	public List<Article> getArticles();
+
 	public void deleteArticle(int id);
-	
+
 	public void modifyArticle(int id, String title, String body);
-	
-	public List<Article> articles();
-	
-	public int getLastArticleId();
-	
+
+	public int getLastInsertId();
 	
 }

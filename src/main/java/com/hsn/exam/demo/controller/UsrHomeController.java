@@ -11,5 +11,4 @@ public class UsrHomeController {
 	public String getString() {
 		return "hi";
 	}
-
 }
