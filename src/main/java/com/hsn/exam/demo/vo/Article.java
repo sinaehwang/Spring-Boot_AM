@@ -11,4 +11,10 @@ public class Article {
 	private int id;
 	private String title;
 	private String body;
+	private String regDate;
+	private String name;
+	private String nickname;
+	private String cellphoneNum;
+	private String email;
+	
 }
