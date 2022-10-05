@@ -70,11 +70,11 @@ public class UsrArticleController {
 		@ResponseBody
 		public ResultData<Integer> doDelete(HttpSession httpSession,int id) {
 			
-			boolean isLogined = false;
+			boolean isLogined = false;//로그인안된상태로 가정
 			
 			int loginedMemberId  = 0;
 			
-			if(httpSession.getAttribute("loginedMemberId")!=null) {
+			if(httpSession.getAttribute("loginedMemberId")!=null) {//널값이 아니라면 로그인상태기때문에 true로 변경
 				
 				isLogined =true;
 				
@@ -82,7 +82,7 @@ public class UsrArticleController {
 				
 			}
 			
-			if(isLogined==false) {
+			if(isLogined==false) {//true가 아니기때문에 로그인이 안된상태
 				return ResultData.from("F-3", "로그인후 이용해주시기 바랍니다.");
 			}
 			
@@ -105,7 +105,9 @@ public class UsrArticleController {
 
 		@RequestMapping("/usr/article/doModify")
 		@ResponseBody
-		public ResultData<Integer> doModify(HttpSession httpSession,int id, String title, String body) {
+		public ResultData doModify(HttpSession httpSession,int id, String title, String body) {
+
+			
 			
 			boolean isLogined = false;
 			
@@ -124,19 +126,21 @@ public class UsrArticleController {
 			}
 			
 			Article article = articleService.getArticle(id);
+			
 
 			if (article == null) {
 				return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다", id), id);
 			}
 			
-			if(article.getMemberId()!=loginedMemberId) {
-				
-				return ResultData.from("F-2", Ut.f("%d번 게시물에 대한 수정권한이 없습니다.", id));
+			ResultData actorCanModifyRd =  articleService.actorCanModify(loginedMemberId,article);//권한체크를 실현-> 권한이 없거나 성공코드가 리턴됨 성공코드가 리턴이 된후에 실제 doModify가 실행됨
+			
+			if(actorCanModifyRd.isFail()) {//권한실패라면 Fail이 실행되기 때문에 그대로 리턴해준다.
+				return actorCanModifyRd; 
 			}
 
-			articleService.modifyArticle(id, title, body);
+			return articleService.modifyArticle(id, title, body);
 
-			return ResultData.from("S-1", Ut.f("%d번 게시물을 수정했습니다", id), id);
+//			return ResultData.from("S-1", Ut.f("%d번 게시물을 수정했습니다", id), id);
 		}
 
 		@RequestMapping("/usr/article/getArticle")

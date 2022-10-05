@@ -59,13 +59,13 @@ public class UsrMemberController {
 	@ResponseBody
 	public ResultData doLogin(HttpSession httpSession,String loginId, String loginPw) {
 		
-		boolean isLogined = false;
+		boolean isLogined = false;//로그인이 안된상태로 가정
 		
 		if(httpSession.getAttribute("loginedMemberId")!=null) {
 			isLogined = true;
 		}
 		
-		if(isLogined) {
+		if(isLogined) {//isLogined가 true라는건 이미 로그인을해서 true로 바꿔놨기때문에
 			return ResultData.from("F-3", "이미 로그인상태입니다.");
 		}
 		
