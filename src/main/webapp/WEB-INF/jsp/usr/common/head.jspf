@@ -22,12 +22,22 @@
 	<h1>${pageTitle }&nbsp;PAGE</h1>
 
 	<header>
-		<a href="#">로고</a>
-
-		<ul>
-			<li><a href="/">HOME</a></li>
-			<li><a href="/usr/article/list">LIST</a></li>
-			<li><a href="/usr/member/login">LOGIN</a></li>
-		</ul>
+		<div class="h-20 flex container mx-auto text-4xl">
+			<a href="#" class = " flex items-center px-3">
+			<spqn>로고</spqn>
+			</a>
+			
+		<div class="flex-grow"></div>
+		
+		<ul class="flex" >
+			<li><a class="h-full px-3 flex items-center" href="/">
+			<span>HOME</span>
+			</a></li>
+			<li><a class="h-full px-3 flex items-center" href="/usr/article/list">
+			<spqn>LIST</spqn>
+			</a></li>
+			<li><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
+			</ul>
+		</div>
 	</header>
 	<main>
