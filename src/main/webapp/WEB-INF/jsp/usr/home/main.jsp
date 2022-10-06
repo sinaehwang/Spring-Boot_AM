@@ -5,9 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>메인</title>
+<link rel="stylesheet" href="/resource/common.css" />
+<script src="/resource/common.js" defer="defer"></script>
 </head>
 <body>
-	<div>메인페이지</div>
+	<h1>메인페이지</h1>
 	<head><a href="#">로고</a>
 	<ul>
 		<li><a href="/">HOME</a></li>
