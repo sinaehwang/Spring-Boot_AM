@@ -19,7 +19,7 @@
 <script src="/resource/common.js" defer="defer"></script>
 </head>
 <body>
-	<h1>${pageTitle }&nbsp;PAGE</h1>
+	
 
 	<header>
 		<div class="h-20 flex container mx-auto text-4xl">
@@ -29,15 +29,21 @@
 			
 		<div class="flex-grow"></div>
 		
-		<ul class="flex" >
-			<li><a class="h-full px-3 flex items-center" href="/">
+		<ul class="flex " >
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/">
 			<span>HOME</span>
 			</a></li>
-			<li><a class="h-full px-3 flex items-center" href="/usr/article/list">
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list">
 			<spqn>LIST</spqn>
 			</a></li>
-			<li><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
+			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/login">LOGIN</a></li>
 			</ul>
 		</div>
 	</header>
+	
+	<section class="my-3 text-2xl">
+		<div class = "container mx-auto px-3">
+			<h1>${pageTitle }&nbsp;PAGE</h1>
+		</div>
+	</section>
 	<main>

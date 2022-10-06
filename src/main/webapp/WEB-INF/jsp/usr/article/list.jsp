@@ -3,7 +3,10 @@
 <c:set var="pageTitle" value="ARTICLE LIST" />
 <%@ include file="../common/head.jspf"%>
 
-<table border="1">
+<section class="mt-8">
+	<div class="container mx-auto px-3">
+	<div class ="table-box-type-1">
+	<table class ="">
 	<thead>
 		<tr>
 			<th>번호</th>
@@ -26,4 +29,7 @@
 	</tbody>
 
 </table>
+	</div>
+		</div>
+</section>
 <%@ include file="../common/foot.jspf"%>
