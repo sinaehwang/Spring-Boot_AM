@@ -8,6 +8,12 @@
 </head>
 <body>
 	<div>메인페이지</div>
-	<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat aspernatur consectetur velit culpa quaerat iste ea veniam debitis delectus sint. Exercitationem earum consequatur voluptatem nesciunt ducimus unde cum. Consequatur quis?</div>
+	<head><a href="#">로고</a>
+	<ul>
+		<li><a href="/">HOME</a></li>
+		<li><a href="/usr/article/list">LIST</a></li>
+	</ul>
+	</head>
+	
 </body>
 </html>

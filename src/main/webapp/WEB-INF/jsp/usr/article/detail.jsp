@@ -5,23 +5,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시물리스트</title>
+<title>게시물상세페이지</title>
 </head>
 <body>
-	<h1>게시물리스트</h1>
+	<div>게시물상세페이지</div>
 	<hr />
 	<table border=2>
 	<thead>
 		<tr>
 			<th>번호</th>
-			<th>날짜</th>
+			<th>작성날짜</th>
+			<th>수정날짜</th>
 			<th>제목</th>
+			<th>내용</th>
 			<th>작성자</th>
 		</tr>
+		
 	</thead>
 	
 	<tbody>
-		<c:forEach var="article" items="${articles }">
+		<c:forEach var="article" items="${article }">
 		<tr>
 			<td>${article.id}</td>
 			<td>${article.regDate.substring(2,10)}</td>
