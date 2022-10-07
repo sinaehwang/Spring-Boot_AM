@@ -114,7 +114,7 @@ public class UsrArticleController {
 		return ResultData.from("S-1", Ut.f("%d번 게시물을 삭제했습니다", id), id,"id");
 	}
 
-	@RequestMapping("/usr/article/modify")
+	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public ResultData doModify(HttpSession httpSession, int id, String title, String body) {
 

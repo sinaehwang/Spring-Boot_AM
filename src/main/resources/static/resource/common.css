@@ -20,3 +20,15 @@ html>body {
 	padding:10px;
 	text-align: center;
 }
+
+.btn-text-link{
+	
+	color:black;
+	
+}
+
+.btn-text-link:hover{
+	color:blue;
+	text-decoration:underline;
+	
+}
