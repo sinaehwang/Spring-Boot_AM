@@ -6,8 +6,12 @@
 <section class="mt-8">
 	<div class="container mx-auto px-3">
 	<div class ="table-box-type-1">
-	<table class ="">
-	<thead>
+	<table>
+			<colgroup>
+				<col width="200" />
+			</colgroup>
+		
+	<tbody>
 		<tr>
 			<th>번호</th>
 			<td>${article.id}</td>
@@ -24,17 +28,22 @@
 			<th>제목</th>
 			<td>${article.id}</td>
 		</tr>
-		<tr>
+		<tr> 
 			<th>내용</th>
 			<td>${article.body}</td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td>${article.memberId}</td>
+			<td>${article.extra_WriterName}</td>
 		
-	</thead>
+	</tbody>
 </table>
 	</div>
+		<div class="btns">
+			<button type="button" onclick="history.back();">뒤로가기</button>
+			<a href="../article/modify?id=${article.id}">수정</a>
+			<a onclick="if ( confirm('게시물을 삭제하시겠습니까?') == false ) { return false; }" href="../article/doDelete?id=${article.id}">삭제</a>
+		</div>
 		</div>
 </section>
 <%@ include file="../common/foot.jspf"%>

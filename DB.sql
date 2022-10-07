@@ -97,4 +97,10 @@ ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateD
 #기존 게시물의 작성자를 2번으로 수정
 UPDATE article SET memberId = 2 WHERE memberId=0
 
+#기존게시물에 회원명 JOIN으로 추가해서 보여주기
+SELECT article.*,`member`.nickname AS extra_WriterName 
+FROM article LEFT JOIN `member`
+ON article.memberId = `member`.id
+WHERE article.id= 1
+
 
