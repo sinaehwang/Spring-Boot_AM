@@ -95,7 +95,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public ResultData<Integer> doDelete(HttpSession httpSession, int id) {
+	public String doDelete(HttpSession httpSession, int id) {
 
 		boolean isLogined = false;// 로그인안된상태로 가정
 
@@ -110,23 +110,25 @@ public class UsrArticleController {
 		}
 
 		if (isLogined == false) {// true가 아니기때문에 로그인이 안된상태
-			return ResultData.from("F-3", "로그인후 이용해주시기 바랍니다.");
+			return Ut.jsHistoryBack("로그인후 이용해주시기 바랍니다.");
 		}
 
 		Article article = articleService.getForPrintArticle(loginedMemberId, id);
 
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다", id), id,"id");
+			return Ut.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다", id));
 		}
 
 		if (article.getMemberId() != loginedMemberId) {
 
-			return ResultData.from("F-2", Ut.f("%d번 게시물에 대한 권한이 없습니다.", id));
+			return Ut.jsHistoryBack(Ut.f("%d번 게시물에 대한 권한이 없습니다.", id));
 		}
 
 		articleService.deleteArticle(id);
+		
+		return Ut.jsReplace(Ut.f("%d번 게시물을 삭제했습니다", id),"/usr/article/list");
 
-		return ResultData.from("S-1", Ut.f("%d번 게시물을 삭제했습니다", id), id,"id");
+		//return ResultData.from("S-1", Ut.f("%d번 게시물을 삭제했습니다", id), id,"id");
 	}
 
 	@RequestMapping("/usr/article/doModify")
