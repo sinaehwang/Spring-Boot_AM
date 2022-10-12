@@ -13,24 +13,21 @@ import com.hsn.exam.demo.vo.Rq;
 public class NeedLoginIntercepter implements HandlerInterceptor {
 	
 	
-	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
 		
 		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if(rq.isLogined()==false) {
 			
-			print();
-			res.getWriter().append(String.format("<script> alert('해당글에 대한 권한이 없습니다.');location.replace('../home/main');</script>"));
+			rq.printHistoryBackJs("로그인후 이용해주세요");
+			//resp.setContentType("text/html; charset=UTF-8");
+			//res.getWriter().append(String.format("<script> alert('해당글에 대한 권한이 없습니다.');location.replace('../home/main');</script>"));
 			
 			return false;
 		}
 		
-		return HandlerInterceptor.super.preHandle(req, res, handler);
+		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}
 
-	public void print() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
