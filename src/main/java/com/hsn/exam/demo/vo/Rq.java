@@ -48,7 +48,7 @@ public class Rq {
 			println("alert('" + msg + "');");
 		}
 
-		println("history.back()");
+		println("history.back();");
 		println("</script>");
 		
 		
@@ -62,7 +62,7 @@ public class Rq {
 		}
 	}
 
-	public void println(String str) {
+	public void println(String str) { //스크립트 작성시 문장 붙임 오류방지를 위해
 		print(str + "\n");
 	}
 	
