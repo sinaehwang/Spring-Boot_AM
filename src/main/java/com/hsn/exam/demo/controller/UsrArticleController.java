@@ -30,9 +30,7 @@ public class UsrArticleController {
 		
 		Rq rq= (Rq) req.getAttribute("rq");
 		
-		if (rq.isLogined() == false) {
-			return ResultData.from("F-3", "로그인후 이용해주시기 바랍니다.");
-		}
+		
 
 		if (Ut.empty(title)) {
 			return ResultData.from("F-1", "제목을 입력해주세요");

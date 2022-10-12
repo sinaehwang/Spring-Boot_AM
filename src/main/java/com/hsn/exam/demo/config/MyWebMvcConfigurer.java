@@ -1,13 +1,12 @@
-package com.hsn.exam.demo;
+package com.hsn.exam.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.hsn.exam.demo.intercepter.BeforeActionIntercepter;
-import com.hsn.exam.demo.intercepter.LoginIntercepter;
+import com.hsn.exam.demo.intercepter.NeedLoginIntercepter;
 
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
@@ -16,18 +15,20 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	BeforeActionIntercepter beforeActionIntercepter;
 	
 	@Autowired
-	LoginIntercepter loginIntercepter;
+	NeedLoginIntercepter needLoginIntercepter;
 	
 	//인터셉터 적용부분
     public void addInterceptors(InterceptorRegistry registry) {
     	
-    	InterceptorRegistration interceptorRegistration = registry.addInterceptor(beforeActionIntercepter);
-    	
-		
-    	interceptorRegistration.addInterceptor(loginIntercepter)
+    	registry.addInterceptor(beforeActionIntercepter)
                 .addPathPatterns("/**") // 해당 경로에 접근하기 전에 인터셉터가 가로챈다.
                 .excludePathPatterns("/resource/**") // 해당 경로는 인터셉터가 가로채지 않는다.
         		.excludePathPatterns("/error");
+    	
+    	registry.addInterceptor(needLoginIntercepter)
+    			.addPathPatterns("/usr/article/doAdd")
+    			.addPathPatterns("/usr/article/doDelete")
+    			.addPathPatterns("/usr/article/doModify");
         
 	}
 	
