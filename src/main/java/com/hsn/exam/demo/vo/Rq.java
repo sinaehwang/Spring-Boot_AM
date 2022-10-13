@@ -42,14 +42,7 @@ public class Rq {
 		
 		resp.setContentType("text/html; charset=UTF-8");
 
-		println("<script>");
-
-		if (!Ut.empty(msg)) {
-			println("alert('" + msg + "');");
-		}
-
-		println("history.back();");
-		println("</script>");
+		print(Ut.jsHistoryBack(msg));
 		
 		
 	}
@@ -77,7 +70,11 @@ public class Rq {
 		httpSession.removeAttribute("loginedMemberId");
 		
 	}
-	
-	
+
+	public String jsHistoryBackOnView(String msg) {
+		req.setAttribute("msg", msg);
+		req.setAttribute("historyBack", true);
+		return "usr/common/js";
+	}
 
 }
