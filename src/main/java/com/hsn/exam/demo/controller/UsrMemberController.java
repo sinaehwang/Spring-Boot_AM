@@ -1,5 +1,6 @@
 package com.hsn.exam.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.hsn.exam.demo.service.MemberService;
 import com.hsn.exam.demo.util.Ut;
 import com.hsn.exam.demo.vo.Member;
 import com.hsn.exam.demo.vo.ResultData;
+import com.hsn.exam.demo.vo.Rq;
 
 @Controller
 public class UsrMemberController {
@@ -57,16 +59,11 @@ public class UsrMemberController {
 	
 	@RequestMapping("usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession httpSession,String loginId, String loginPw) {
+	public String doLogin(HttpServletRequest req,String loginId, String loginPw) {
 		
-		boolean isLogined = false;//로그인이 안된상태로 가정
+		Rq rq = (Rq) req.getAttribute("rq");
 		
-		if(httpSession.getAttribute("loginedMemberId")!=null) {
-			isLogined = true;
-		}
-		
-		if(isLogined) {//isLogined가 true라는건 이미 로그인을해서 true로 바꿔놨기때문에
-			//return ResultData.from("F-3", "이미 로그인상태입니다.");
+		if(rq.isLogined()) {
 			return Ut.jsHistoryBack("이미 로그인상태입니다.");
 		}
 		
@@ -91,9 +88,9 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
-		httpSession.setAttribute("loginedMemberId", member.getId());
 		
-		//return ResultData.from("S-1", Ut.f("%s님 로그인 성공", member.getName()),member,"Member");
+		rq.login(member);
+		
 		return Ut.jsReplace(Ut.f("%s님 로그인 성공", member.getName()), "/");
 		
 	}
@@ -107,22 +104,24 @@ public class UsrMemberController {
 	
 	@RequestMapping("usr/member/doLogout")
 	@ResponseBody
-	public ResultData doLogout(HttpSession httpSession) {
+	public String doLogout(HttpServletRequest req) {
 		
-		boolean isLogined = false;
+		//boolean isLogined = false;
 		
-		if(httpSession.getAttribute("loginedMemberId")==null) {
-			isLogined = true;
+		Rq rq = (Rq) req.getAttribute("rq");
+		
+		/*
+		 * if(httpSession.getAttribute("loginedMemberId")==null) { isLogined = true; }
+		 */
+		
+		if(rq.isLogined()==false) {
+			//return ResultData.from("F-3", "이미 로그아웃상태입니다.");
+			return Ut.jsHistoryBack("이미 로그아웃상태입니다.");
 		}
 		
-		if(isLogined) {
-			return ResultData.from("F-3", "이미 로그아웃상태입니다.");
-		}
+		rq.logout();
 		
-		httpSession.removeAttribute("loginedMemberId");
-		
-		return ResultData.from("S-1", "로그아웃되었습니다.");
-		
+		return Ut.jsReplace("로그아웃되었습니다.", "/");
 	}
 	
 	

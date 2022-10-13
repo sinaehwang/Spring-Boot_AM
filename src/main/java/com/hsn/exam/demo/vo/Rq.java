@@ -65,6 +65,18 @@ public class Rq {
 	public void println(String str) { //스크립트 작성시 문장 붙임 오류방지를 위해
 		print(str + "\n");
 	}
+
+	public void login(Member member) {
+		
+		httpSession.setAttribute("loginedMemberId", member.getId());
+		
+	}
+
+	public void logout() {
+		
+		httpSession.removeAttribute("loginedMemberId");
+		
+	}
 	
 	
 
