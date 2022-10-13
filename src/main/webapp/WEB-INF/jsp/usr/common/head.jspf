@@ -36,7 +36,18 @@
 			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/article/list">
 			<spqn>LIST</spqn>
 			</a></li>
-			<li class="hover:underline"><a class="h-full px-3 flex items-center" href="/usr/member/Login">LOGIN</a></li>
+			
+        <c:if test = "${rq.isLogined()==false}">
+          <li class="flex items-center px-3">
+            <a href="/usr/member/Login" ><span class ="hover:underline">LOGIN</span></a>
+          </li>
+        </c:if>
+        <c:if test = "${rq.isLogined()}">
+          <li class="flex items-center px-3">
+            <a href="/usr/member/doLogout" ><span class ="hover:underline">LOGOUT</span></a>
+          </li>
+        </c:if>
+        
 			</ul>
 		</div>
 	</header>
