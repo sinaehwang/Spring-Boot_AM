@@ -5,7 +5,7 @@
 
 <section class="mt-8">
 	<div class="container mx-auto px-3">
-	<form class ="table-box-type-1" action="../usr/member/doLogin" method="POST">
+	<form class ="table-box-type-1" method="POST" action="../member/doLogin" >
 	<table>
 			<colgroup>
 				<col width="200" />
@@ -23,27 +23,18 @@
 		</tr>
 		
 		<tr>
-        <th>로그인</th>
-        <td>
-          <input type ="submit" value ="로그인" />
-          <button type = "button" onclick="history.back();"></button> //여기부터 다시 체크하기
-        </td>
+        <th></th>
+        <td><input type ="submit" value ="로그인" /></td>
       </tr>
 	</tbody>
 </table>
 	</form>
-		<div class="btns mt-5">
-			<button type="button" onclick="history.back();">뒤로가기</button>
-			<c:if test="${article.extra__actorCanDelete }">
-				<a class="btn-text-link ml-5" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
-					href="../article/doDelete?id=${article.id }"
-				>삭제</a>
-			</c:if>
 		</div>
-		</div>
+		
+	<div class="btns">
+		<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
+	</div>
+	
 </section>
-
-
-
 
 <%@ include file="../common/foot.jspf"%>

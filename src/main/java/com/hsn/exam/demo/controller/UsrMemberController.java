@@ -94,7 +94,7 @@ public class UsrMemberController {
 		httpSession.setAttribute("loginedMemberId", member.getId());
 		
 		//return ResultData.from("S-1", Ut.f("%s님 로그인 성공", member.getName()),member,"Member");
-		return Ut.jsReplace(Ut.f("%s님 로그인 성공", member.getName()), "usr/home/main");
+		return Ut.jsReplace(Ut.f("%s님 로그인 성공", member.getName()), "/");
 		
 	}
 	
@@ -102,9 +102,6 @@ public class UsrMemberController {
 	public String login(HttpSession httpSession) {
 		
 		return "usr/member/login";
-		
-		
-		
 	}
 	
 	
