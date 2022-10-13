@@ -121,6 +121,33 @@ public class UsrArticleController {
 
 //			return ResultData.from("S-1", Ut.f("%d번 게시물을 수정했습니다", id), id);
 	}
+	
+	@RequestMapping("/usr/article/modify")
+	public String modify(HttpServletRequest req, int id, String title, String body) {
+
+		Rq rq= (Rq) req.getAttribute("rq");
+
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(),id);
+
+		if (article == null) {
+			//return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다", id), id,"id");
+			return Ut.jsHistoryBack("해당게시물은 존재하지 않습니다.");
+		}
+
+		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);// 권한체크를 실현-> 권한이 없거나
+																								// 성공코드가 리턴됨 성공코드가 리턴이
+																								// 된후에 실제 doModify가 실행됨
+
+		if (actorCanModifyRd.isFail()) {// 권한실패라면 Fail이 실행되기 때문에 그대로 리턴해준다.
+			return Ut.jsHistoryBack("해당게시물에 대한 수정권한이 없습니다.");
+		}
+
+		//return articleService.modifyArticle(id, title, body);
+		
+		return "usr/article/modify";
+
+//			return ResultData.from("S-1", Ut.f("%d번 게시물을 수정했습니다", id), id);
+	}
 
 
 
