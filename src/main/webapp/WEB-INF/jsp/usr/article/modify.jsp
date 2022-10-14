@@ -32,29 +32,31 @@
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td><input class="w-full" type="text" name="title" placeholder="제목을 입력해주세요" value="${article.title }" /></td>
+			<td><input class="w-full input input-bordered" type="text" name="title" placeholder="제목을 입력해주세요" value="${article.title }" /></td>
 		</tr>
 		<tr> 
 			<th>내용</th>
-			<td><textarea class="w-full" type="text" name="body" placeholder="내용을 입력해주세요" />${article.body }</textarea></td>
+			<td><textarea class="w-full input input-bordered" rows="10" name="body" />${article.body }</textarea></td>
 		</tr>
 
 		<tr>
 			<th></th>
-			<td><button type="submit" value="수정" />수정
-			</button></td>
+			<td>
+			<button type="submit" class="btn btn-outline btn-primary">수정</button>
+			</td>
 			</tr>	
 		
 	</tbody>
 </table>
 	</form>
 		<div class="btns mt-5">
-			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
-			<a class = "btn-text-link ml-5" href="../article/modify?id=${article.id}">수정</a>
+			 <button class="btn btn-link" type="button" onclick="history.back();">뒤로가기</button>
+      		<button class="btn btn-link" type="button" onclick="location.href='../home/main' ">HOME</button>
+			 
+			  <a class="btn btn-link ml-2"  href= "../article/modify?id=${article.id}">수정</a>
 			<c:if test="${article.extra__actorCanDelete }">
-				<a class="btn-text-link ml-5" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
-					href="../article/doDelete?id=${article.id }"
-				>삭제</a>
+				<a class="btn btn-link ml-5" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
+					href="../article/doDelete?id=${article.id }">삭제</a>
 			</c:if>
 		</div>
 		</div>
