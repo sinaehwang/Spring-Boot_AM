@@ -26,7 +26,7 @@
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td>${article.id}</td>
+			<td>${article.title}</td>
 		</tr>
 		<tr> 
 			<th>내용</th>
