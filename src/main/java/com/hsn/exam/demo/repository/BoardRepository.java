@@ -11,7 +11,7 @@ public interface BoardRepository {
 	@Select("""
 			SELECT *FROM board AS b
 			WHERE b.id = #{id}
-			AND board.delStatus = 0
+			AND b.delStatus = 0
 				""")
 
 	public Board getForBoard(int boardId);
