@@ -9,11 +9,10 @@ import com.hsn.exam.demo.vo.Article;
 @Mapper
 public interface ArticleRepository {
 
-	public void writeArticle(String title, String body,int loginedMemberId);
+	public void writeArticle(int boardId,String title, String body, int loginedMemberId);
 
 	public Article getForPrintArticle(int id);
 
-	
 	public List<Article> getArticles(int boardId);
 
 	public void deleteArticle(int id);
