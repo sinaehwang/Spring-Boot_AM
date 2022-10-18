@@ -16,14 +16,14 @@
 	<select id="getArticles" resultType="Article">
 		SELECT article.*,`member`.nickname AS extra_WriterName 
 		FROM article LEFT JOIN `member`
-		ON article.memberId = `member`.id
-		`member`.id WHERE 1
+		ON article.memberId 
+		= `member`.id WHERE 1
 		<if test = "boardId !=0" >
 		AND article.boardId = #{boardId}
 		</if>
 		ORDER BY id DESC
-		<if test = "limitStar !=0 or limiTake !=0" >
-			LIMIT #{limitStart},#{limitTake}
+		<if test="limitTake != -1">
+				LIMIT #{limitStart}, #{limitTake}
 		</if>
 		
 	</select>
