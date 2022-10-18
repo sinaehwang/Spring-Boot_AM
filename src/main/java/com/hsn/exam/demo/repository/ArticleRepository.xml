@@ -17,6 +17,10 @@
 		SELECT article.*,`member`.nickname AS extra_WriterName 
 		FROM article LEFT JOIN `member`
 		ON article.memberId = `member`.id
+		WHERE 1=1
+		<if test = "boardId !=0" >
+		AND article.boardId = #{boardId}
+		</if>
 		ORDER BY
 		id DESC
 	</select>
