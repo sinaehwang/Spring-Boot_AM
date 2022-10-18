@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hsn.exam.demo.service.ArticleService;
@@ -74,7 +75,8 @@ public class UsrArticleController {
 	
 
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model, int boardId) {
+	public String showList(HttpServletRequest req, Model model,@RequestParam(defaultValue = "1") int boardId,
+			@RequestParam(defaultValue = "1") int page) {//boardId의 기본값을 1로 설정
 
 		
 		Board board = boardService.getForBoard(boardId);
@@ -85,7 +87,10 @@ public class UsrArticleController {
 		}
 		
 		int TotalCount = articleService.getTotalCount(boardId);
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(),boardId);
+		
+		int itemsInAPage = 10;
+		
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(),boardId,page,itemsInAPage);//현재페이지와 페이지 갯수도 파라미터로 넘김
 		
 		model.addAttribute("TotalCount", TotalCount);
 		model.addAttribute("board", board);
