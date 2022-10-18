@@ -5,7 +5,7 @@
 
 <section class="mt-8">
 	<div class="container mx-auto px-3">
-	<div>총 게시글수:"${TotalCount }"</div>
+	<div>총 게시글 :${TotalCount }개</div>
 	<div class ="table-box-type-1">
 	<table class ="">
 			<colgroup>

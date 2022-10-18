@@ -140,4 +140,25 @@ UPDATE article
 SET boardId = 2
 WHERE id IN (3,4);
 
+# WHERE 1=1(참)을 이용해 boardId에 해당하는 게시글목록만 가져오기
+SELECT article.*,`member`.nickname AS extra_writerName 
+FROM article LEFT JOIN `member` 
+ON article.memberId = `member`.Id
+WHERE 1=1 
+AND article.boardId = 1
+ORDER BY article.id DESC
+
+
+#게시물갯수늘리기
+INSERT INTO article
+(
+regDate,updateDate,memberId,boardId,title,`body`
+)
+
+SELECT NOW(),NOW(),FLOOR(RAND()*2)+1,FLOOR(RAND()*2)+1,CONCAT('제목_',RAND()),CONCAT('내용_',RAND())
+FROM article;
+
+SELECT FLOOR(RAND()*2)+1
+
+SELECT * FROM article
 
