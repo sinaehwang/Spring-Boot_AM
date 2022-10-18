@@ -78,8 +78,10 @@ public class UsrArticleController {
 			return rq.jsHistoryBackOnView(Ut.f("%d번 게시판은 존재하지 않습니다", boardId));
 		}
 		
+		int TotalCount = articleService.getTotalCount(boardId);
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(),boardId);
 		
+		model.addAttribute("TotalCount", TotalCount);
 		model.addAttribute("board", board);
 		model.addAttribute("articles", articles);
 		
