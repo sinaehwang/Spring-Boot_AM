@@ -19,6 +19,14 @@ public class UsrMemberController {
 
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private Rq rq;
+	
+	public UsrMemberController(MemberService memberService, Rq rq) {
+		this.memberService = memberService;
+		this.rq = rq;
+	}
+	
 
 	@RequestMapping("usr/member/doJoin")
 	@ResponseBody
@@ -61,7 +69,6 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doLogin(HttpServletRequest req,String loginId, String loginPw) {
 		
-		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if(rq.isLogined()) {
 			return Ut.jsHistoryBack("이미 로그인상태입니다.");
@@ -106,13 +113,6 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doLogout(HttpServletRequest req) {
 		
-		//boolean isLogined = false;
-		
-		Rq rq = (Rq) req.getAttribute("rq");
-		
-		/*
-		 * if(httpSession.getAttribute("loginedMemberId")==null) { isLogined = true; }
-		 */
 		
 		if(rq.isLogined()==false) {
 			//return ResultData.from("F-3", "이미 로그아웃상태입니다.");

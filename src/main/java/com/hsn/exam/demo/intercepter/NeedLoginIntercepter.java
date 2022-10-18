@@ -12,10 +12,15 @@ import com.hsn.exam.demo.vo.Rq;
 @Component
 public class NeedLoginIntercepter implements HandlerInterceptor {
 	
+	private Rq rq;
+
+	public NeedLoginIntercepter(Rq rq) {
+		this.rq = rq;
+	}
+	
 	
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
 		
-		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if(rq.isLogined()==false) {
 			
