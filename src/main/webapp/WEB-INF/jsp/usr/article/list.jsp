@@ -37,6 +37,16 @@
 
 </table>
 	</div>
+	
+	<div class = "page-menu mt-5 flex justify-center ">
+	<div class="btn-group">
+		<c:forEach  begin="1" end ="10" var ="i" >
+			<a class="btn btn-sm ${param.page == i ? 'btn-active' : ''}" href="?page=${i}">${i}</a><!-- 동일한 url이니까 앞에 local/8081~생략가능, 파라미터값이랑 page값이 같을때만 하이라이팅 -->
+  		</c:forEach>
+	</div>
+	</div>
+
+
 		</div>
 </section>
 <%@ include file="../common/foot.jspf"%>
