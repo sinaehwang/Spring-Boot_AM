@@ -21,6 +21,6 @@ public interface ArticleRepository {
 
 	public int getLastInsertId();
 
-	public int getTotalCount(int boardId);
+	public int getTotalCount(int boardId, String searchkeyword,String TypeCode);
 	
 }

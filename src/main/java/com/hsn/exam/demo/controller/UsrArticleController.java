@@ -75,8 +75,11 @@ public class UsrArticleController {
 	
 
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model,@RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page) {//boardId의 기본값을 1로 설정
+	public String showList(HttpServletRequest req, Model model,
+			@RequestParam(defaultValue = "1") int boardId,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "title,body") String TypeCode,
+			@RequestParam(defaultValue = "") String searchkeyword) {//boardId의 기본값을 1로 설정
 
 		
 		Board board = boardService.getForBoard(boardId);
@@ -86,7 +89,7 @@ public class UsrArticleController {
 			return rq.jsHistoryBackOnView(Ut.f("%d번 게시판은 존재하지 않습니다", boardId));
 		}
 		
-		int TotalCount = articleService.getTotalCount(boardId);
+		int TotalCount = articleService.getTotalCount(boardId,searchkeyword,TypeCode);
 		
 		int itemsInAPage = 10;
 		

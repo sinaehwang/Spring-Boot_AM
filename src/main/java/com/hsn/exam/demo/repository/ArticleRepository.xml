@@ -62,6 +62,26 @@
 		<if test = "boardId !=0" >
 		AND article.boardId = #{boardId}
 		</if>
+		<if test = "searchkeyword != ''" >
+			<choose>
+				<when test="TypeCode=='title'">
+					AND article.title LIKE CONCAT('%',#{searchkeyword},'%')
+				</when>
+				<when test="TypeCode=='body'">
+					AND article.body LIKE CONCAT('%',#{searchkeyword},'%')
+				</when>
+				<otherwise>
+				AND (
+					article.title LIKE CONCAT('%',#{searchkeyword},'%')
+					OR
+					article.body LIKE CONCAT('%',#{searchkeyword},'%')
+					)
+				
+				</otherwise>
+		
+			</choose>
+		</if>
+
 
 	</select>
 </mapper>
