@@ -95,7 +95,7 @@ public class UsrArticleController {
 		
 		int PageConunt = (int)Math.ceil((double)TotalCount/itemsInAPage);
 		
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(),boardId,page,itemsInAPage);//현재페이지와 페이지 갯수도 파라미터로 넘김
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(),boardId,page,itemsInAPage,searchkeyword,TypeCode);//현재페이지와 페이지 갯수도 파라미터로 넘김
 		
 		model.addAttribute("TotalCount", TotalCount);
 		model.addAttribute("board", board);
