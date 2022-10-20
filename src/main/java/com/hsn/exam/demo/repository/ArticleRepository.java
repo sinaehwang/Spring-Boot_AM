@@ -3,6 +3,7 @@ package com.hsn.exam.demo.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.hsn.exam.demo.vo.Article;
@@ -34,5 +35,14 @@ public interface ArticleRepository {
 			""")
 	
 	public int increaseHitCount(int id);
+
+	@Select("""
+			<script>
+			SELECT hitCount
+			FROM article
+			WHERE id = #{id}
+			</script>
+			""")
+	public int getArticleHitCount(int id);
 	
 }

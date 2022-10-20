@@ -120,6 +120,22 @@ public class UsrArticleController {
 		return "usr/article/detail";
 		
 	}
+	
+	@RequestMapping("/usr/article/doIncreaseHitCountRd")
+	@ResponseBody
+	public ResultData<Integer> doIncreaseHitCountRd(int id) {
+
+		ResultData<Integer> increaseHitCountRd = articleService.increaseHitCount(id);
+		
+		if(increaseHitCountRd.isFail()) {
+			return increaseHitCountRd;
+		}
+		
+		return ResultData.newData(increaseHitCountRd, "hitCount",articleService.getArticleHitCount(id));
+		
+	}
+	
+	
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
