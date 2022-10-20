@@ -3,6 +3,7 @@ package com.hsn.exam.demo.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
 
 import com.hsn.exam.demo.vo.Article;
 
@@ -22,5 +23,16 @@ public interface ArticleRepository {
 	public int getLastInsertId();
 
 	public int getTotalCount(int boardId, String searchkeyword,String TypeCode);
+
+	
+	@Update("""
+			<script>
+			UPDATE article
+			SET hitCount = hitCount + 1
+			WHERE id = #{id}
+			</script>
+			""")
+	
+	public int increaseHitCount(int id);
 	
 }

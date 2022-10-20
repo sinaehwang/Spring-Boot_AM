@@ -15,6 +15,7 @@ public class Article {
 	private String regDate;
 	private String updateDate;
 	private int memberId;
+	private int hitCount;
 	
 	//테이블구조 추가 요소(조인을 통해서 가져온다)
 	private String extra_WriterName;

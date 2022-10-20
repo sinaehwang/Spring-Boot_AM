@@ -109,8 +109,9 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(HttpServletRequest req, Model model, int id) {
+	public String showDetail(Model model, int id) {
 		
+		articleService.increaseHitCount(id);
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
@@ -124,7 +125,11 @@ public class UsrArticleController {
 	@ResponseBody
 	public String doDelete(HttpServletRequest req, int id) {
 
-
+		ResultData<Integer> increaseHitCountRd = articleService.increaseHitCount(id);
+		
+		if(increaseHitCountRd.isFail()) {
+			return rq.jsHistoryBackOnView(increaseHitCountRd.getMsg());
+		}
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
