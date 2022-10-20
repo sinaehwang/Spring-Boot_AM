@@ -5,8 +5,32 @@
 
 <section class="mt-8">
 	<div class="container mx-auto px-3">
-	<div>총 게시글 :${TotalCount }개</div>
-	<div class ="table-box-type-1">
+	<div class = "flex">
+		<div>총 게시글 : <span class = "badge">${TotalCount }개</span></div>
+		<div class ="flex-grow"></div>
+		<form class= "flex" >
+			<input type="hidden" name="boardId" value="${param.boardId }" />
+		
+			<select data-value = "${param.TypeCode }" name="TypeCode" class = "select select=bordered">
+				<option disabled="disabled">검색</option>
+				<option value="title">제목</option>
+				<option value="body">내용</option>
+				<option value="title,body">제목+내용</option>
+			</select>
+			
+			<input name="searchkeyword" type="text"
+			class="ml-2 w-96 input input-bordered"
+          	placeholder="검색어를 입력해주세요" maxlength="20"
+          	value="${param.searchkeyword }" />
+
+          <button class="ml-3 btn btn-outline btn-ghost" type="submit"> 검색</button>
+          
+		</form>
+	</div>
+	
+	
+	
+	<div class ="table-box-type-1 mt-5">
 	<table class ="">
 			<colgroup>
 				<col width="40" />
@@ -48,9 +72,9 @@
 		
 		<c:set var="pageBaseUri" value="?boarId=${boardId }" />
         <c:set var="pageBaseUri"
-          value="?pageBaseUri=${pageBaseUri }&TypeCode=${param.TypeCode }" />
+          value="${pageBaseUri }&TypeCode=${param.TypeCode}" />
         <c:set var="pageBaseUri"
-          value="?pageBaseUri=${pageBaseUri }&searchkeyword=${param.searchkeyword }" />
+          value="${pageBaseUri }&searchkeyword=${param.searchkeyword}" />
 		
 		<c:if test = "${startPage>1}">
 			<a class = "btn btn-sm" href="${pageBaseUri }&page=1">1</a>
