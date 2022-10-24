@@ -27,11 +27,13 @@ public class ArticleService {
 		return article;
 	}
 
-	public List<Article> getForPrintArticles(int actorId,int boardId, int page, int itemsInAPage, String searchkeyword, String TypeCode) {
+	public List<Article> getForPrintArticles(int actorId, int boardId, int itemsInAPage, int page,
+			String searchKeywordTypeCode, String searchKeyword) {
 		
 		int limitStart = (page-1)*itemsInAPage;
 		int limitTake = itemsInAPage;
-		List<Article> articles = articleRepository.getArticles(boardId,limitStart,limitTake,searchkeyword,TypeCode);
+		List<Article> articles = articleRepository.getArticles(boardId, searchKeywordTypeCode, searchKeyword,
+				limitStart, limitTake);
 
 		for (Article article : articles) {
 			updateForPrintData(actorId, article);
@@ -96,9 +98,9 @@ public class ArticleService {
 		return ResultData.from("S-1", "삭제 가능");
 	}
 
-	public int getTotalCount(int boardId, String searchkeyword, String TypeCode) {
+	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword) {
 		
-		return articleRepository.getTotalCount(boardId,searchkeyword,TypeCode);
+		return articleRepository.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 	}
 
 	public ResultData<Integer> increaseHitCount(int id) {

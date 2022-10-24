@@ -13,41 +13,6 @@
 		`body` = #{body}
 	</insert>
 
-	<select id="getArticles" resultType="Article">
-		SELECT article.*,`member`.nickname AS extra_WriterName 
-		FROM article LEFT JOIN `member`
-		ON article.memberId 
-		= `member`.id WHERE 1
-		<if test = "boardId !=0" >
-		AND article.boardId = #{boardId}
-		</if>
-		
-		<if test = "searchkeyword != ''" >
-			<choose>
-				<when test="TypeCode=='title'">
-					AND article.title LIKE CONCAT('%',#{searchkeyword},'%')
-				</when>
-				<when test="TypeCode=='body'">
-					AND article.body LIKE CONCAT('%',#{searchkeyword},'%')
-				</when>
-				<otherwise>
-				AND (
-					article.title LIKE CONCAT('%',#{searchkeyword},'%')
-					OR
-					article.body LIKE CONCAT('%',#{searchkeyword},'%')
-					)
-				
-				</otherwise>
-		
-			</choose>
-		</if>
-		
-		ORDER BY id DESC
-		<if test="limitTake != -1">
-				LIMIT #{limitStart}, #{limitTake}
-		</if>
-		
-	</select>
 
 	<select id="getForPrintArticle" resultType="Article">
 		SELECT article.*,`member`.nickname AS extra_WriterName 
@@ -76,33 +41,5 @@
 		SELECT LAST_INSERT_ID()
 	</select>
 	
-	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) 
-		FROM article 
-		WHERE 1=1
-		<if test = "boardId !=0" >
-		AND article.boardId = #{boardId}
-		</if>
-		<if test = "searchkeyword != ''" >
-			<choose>
-				<when test="TypeCode=='title'">
-					AND article.title LIKE CONCAT('%',#{searchkeyword},'%')
-				</when>
-				<when test="TypeCode=='body'">
-					AND article.body LIKE CONCAT('%',#{searchkeyword},'%')
-				</when>
-				<otherwise>
-				AND (
-					article.title LIKE CONCAT('%',#{searchkeyword},'%')
-					OR
-					article.body LIKE CONCAT('%',#{searchkeyword},'%')
-					)
-				
-				</otherwise>
-		
-			</choose>
-		</if>
 
-
-	</select>
 </mapper>

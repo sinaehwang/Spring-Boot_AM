@@ -75,11 +75,9 @@ public class UsrArticleController {
 	
 
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model,
-			@RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "title,body") String TypeCode,
-			@RequestParam(defaultValue = "") String searchkeyword) {//boardId의 기본값을 1로 설정
+	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
+			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword, @RequestParam(defaultValue = "1") int page) {//boardId의 기본값을 1로 설정
 
 		
 		Board board = boardService.getForBoard(boardId);
@@ -89,19 +87,20 @@ public class UsrArticleController {
 			return rq.jsHistoryBackOnView(Ut.f("%d번 게시판은 존재하지 않습니다", boardId));
 		}
 		
-		int TotalCount = articleService.getTotalCount(boardId,searchkeyword,TypeCode);
+		int articlesCount  = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 		
 		int itemsInAPage = 10;
 		
-		int PageConunt = (int)Math.ceil((double)TotalCount/itemsInAPage);
+		int pagesCount  = (int)Math.ceil((double)articlesCount /itemsInAPage);
 		
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(),boardId,page,itemsInAPage,searchkeyword,TypeCode);//현재페이지와 페이지 갯수도 파라미터로 넘김
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsInAPage,
+				page, searchKeywordTypeCode, searchKeyword);
 		
-		model.addAttribute("TotalCount", TotalCount);
-		model.addAttribute("board", board);
 		model.addAttribute("boardId", boardId);
+		model.addAttribute("board", board);
 		model.addAttribute("page", page);
-		model.addAttribute("PageConunt", PageConunt);
+		model.addAttribute("articlesCount", articlesCount);
+		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("articles", articles);
 		
 
