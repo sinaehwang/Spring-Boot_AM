@@ -30,11 +30,6 @@ public class UsrArticleController {
 	@Autowired
 	private Rq rq;
 	
-	public UsrArticleController(ArticleService articleService, BoardService boardService, Rq rq) {
-		this.articleService = articleService;
-		this.boardService = boardService;
-		this.rq = rq;
-	}
 	
 	// 액션메서드
 	@RequestMapping("/usr/article/doAdd")
@@ -55,22 +50,17 @@ public class UsrArticleController {
 
 		int id = (int) writeArticleRd.getData1();
 
-		//Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(),id);
 		
 		if(Ut.empty(replaceUri)) {
 			replaceUri = Ut.f("../article/detail?id=%d", id);
 		}
 
-		//return ResultData.newData(writeArticleRd,"Article" ,article);
 		return rq.jsReplace(Ut.f("%d번 게시물을 작성했습니다", id), replaceUri); 
 	}
 	
 	@RequestMapping("/usr/article/write")
-	public String write(HttpServletRequest req, Model model) {
-
-
+	public String showWrite(String title, String body) {
 		return "usr/article/write";
-
 	}
 	
 
@@ -84,7 +74,7 @@ public class UsrArticleController {
 		
 		if(board==null) {
 			
-			return rq.jsHistoryBackOnView(Ut.f("%d번 게시판은 존재하지 않습니다", boardId));
+			return rq.jsHistoryBackOnView("존재하지 않는 게시판입니다.");
 		}
 		
 		int articlesCount  = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
@@ -110,12 +100,6 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
 		
-		ResultData<Integer> increaseHitCountRd = articleService.increaseHitCount(id);
-
-		if (increaseHitCountRd.isFail()) {
-			return rq.jsHistoryBackOnView(increaseHitCountRd.getMsg());
-		}
-
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
 		model.addAttribute("article", article);
@@ -127,19 +111,18 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doIncreaseHitCountRd")
 	@ResponseBody
 	public ResultData<Integer> doIncreaseHitCountRd(int id) {
-
 		ResultData<Integer> increaseHitCountRd = articleService.increaseHitCount(id);
-		
-		if(increaseHitCountRd.isFail()) {
+
+		if (increaseHitCountRd.isFail()) {
 			return increaseHitCountRd;
 		}
-		
-		ResultData<Integer> rd =  ResultData.newData(increaseHitCountRd, "hitCount",articleService.getArticleHitCount(id));
-		
-		rd.setData2("id",id);
-		
+
+		ResultData<Integer> rd = ResultData.newData(increaseHitCountRd, "hitCount",
+				articleService.getArticleHitCount(id));
+
+		rd.setData2("id", id);
+
 		return rd;
-		
 	}
 	
 	

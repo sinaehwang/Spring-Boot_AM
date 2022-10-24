@@ -15,8 +15,6 @@ public interface ArticleRepository {
 
 	public Article getForPrintArticle(int id);
 	
-	
-
 	@Select("""
 			<script>
 			SELECT A.*, M.nickname AS

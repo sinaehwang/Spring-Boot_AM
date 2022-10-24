@@ -29,8 +29,8 @@ public class ArticleService {
 
 	public List<Article> getForPrintArticles(int actorId, int boardId, int itemsInAPage, int page,
 			String searchKeywordTypeCode, String searchKeyword) {
-		
-		int limitStart = (page-1)*itemsInAPage;
+
+		int limitStart = (page - 1) * itemsInAPage;
 		int limitTake = itemsInAPage;
 		List<Article> articles = articleRepository.getArticles(boardId, searchKeywordTypeCode, searchKeyword,
 				limitStart, limitTake);
@@ -49,7 +49,7 @@ public class ArticleService {
 
 		ResultData actorCanDeleteRd = actorCanDelete(actorId, article);
 		article.setExtra__actorCanDelete(actorCanDeleteRd.isSuccess());
-		
+
 		ResultData actorCanModifyRd = actorCanModify(actorId, article);
 		article.setExtra__actorCanModify(actorCanModifyRd.isSuccess());
 

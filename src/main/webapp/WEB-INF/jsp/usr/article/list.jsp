@@ -31,7 +31,7 @@
 			<table class="table table-fixed w-full">
 				<colgroup>
 					<col width="80" />
-					<col width="150" />
+					<col width="140" />
 					<col />
 					<col width="140" />
 				</colgroup>

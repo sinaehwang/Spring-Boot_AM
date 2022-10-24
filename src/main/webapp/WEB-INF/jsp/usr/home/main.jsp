@@ -2,8 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="MAIN" />
 <%@ include file="../common/head.jspf"%>
-<section class = "mt-5">
-	<div class = "container mx-auto">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero distinctio sapiente omnis aut placeat eaque quod delectus non fugit qui quas mollitia corrupti voluptatibus fugiat quos repellendus voluptates nulla nisi.
+
+<section class="mt-8">
+	<div class="container mx-auto">
+		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed officiis tempore et in fugiat natus nobis
+			placeat veritatis repellat cupiditate similique est impedit. Tenetur optio facere a perferendis rem quasi!</div>
+
+		안녕하세요
 	</div>
 </section>
 <%@ include file="../common/foot.jspf"%>

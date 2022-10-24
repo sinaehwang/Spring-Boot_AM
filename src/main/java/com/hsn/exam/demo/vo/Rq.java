@@ -15,50 +15,48 @@ import com.hsn.exam.demo.util.Ut;
 
 import lombok.Getter;
 
+
 @Component
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Rq {
+	
 	@Getter
 	private boolean isLogined;
 	@Getter
 	private int loginedMemberId;
 	@Getter
 	private Member loginedMember;
-	
 
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
-	private HttpSession httpSession;
-	
-	public Rq(HttpServletRequest req, HttpServletResponse resp,MemberService memberService) {
-		
+	private HttpSession session;
+
+	public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
 		this.req = req;
 		this.resp = resp;
-		this.httpSession = req.getSession();
-		
+
+		this.session = req.getSession();
+
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 		Member loginedMember = null;
 
-		if (httpSession.getAttribute("loginedMemberId") != null) {
+		if (session.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
-			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 			loginedMember = memberService.getMemberById(loginedMemberId);
 		}
 
 		this.isLogined = isLogined;
 		this.loginedMemberId = loginedMemberId;
 		this.loginedMember = loginedMember;
+
 		this.req.setAttribute("rq", this);
 	}
 
 	public void printHistoryBackJs(String msg) {
-		
 		resp.setContentType("text/html; charset=UTF-8");
-
 		print(Ut.jsHistoryBack(msg));
-		
-		
 	}
 
 	public void print(String str) {
@@ -69,20 +67,16 @@ public class Rq {
 		}
 	}
 
-	public void println(String str) { //스크립트 작성시 문장 붙임 오류방지를 위해
+	public void println(String str) {
 		print(str + "\n");
 	}
 
 	public void login(Member member) {
-		
-		httpSession.setAttribute("loginedMemberId", member.getId());
-		
+		session.setAttribute("loginedMemberId", member.getId());
 	}
 
 	public void logout() {
-		
-		httpSession.removeAttribute("loginedMemberId");
-		
+		session.removeAttribute("loginedMemberId");
 	}
 
 	public String jsHistoryBackOnView(String msg) {
@@ -92,20 +86,15 @@ public class Rq {
 	}
 
 	public String jsHistoryBack(String msg) {
-		
 		return Ut.jsHistoryBack(msg);
 	}
 
-	public String jsReplace(String msg, String url) {
-		
-		return Ut.jsReplace(msg, url);
+	public String jsReplace(String msg, String uri) {
+		return Ut.jsReplace(msg, uri);
 	}
-
-	//Rq 객체가 자연스럽게 생성되도록 유도하는 메서드로 구현기능이 없지만 지우면 안됨
-	//편의성을 높이기 위해 BeforeActionInterceptor 에서 호출 필요
-	
+	// 해당 메서드는 Rq 객체의 생성을 유도한다.
+	// 삭제 금지, 편의를 위하여 BeforeActionInterceptor 에서 호출해줘야 한다.
 	public void initOnBeforeActionInterceptor() {
 		
 	}
-
 }

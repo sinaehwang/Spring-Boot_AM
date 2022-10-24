@@ -13,6 +13,5 @@ public interface BoardRepository {
 			WHERE b.id = #{id}
 			AND b.delStatus = 0
 				""")
-
 	public Board getForBoard(int boardId);
 }
