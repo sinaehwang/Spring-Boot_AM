@@ -1,11 +1,13 @@
-
+```sql
 # DB 생성
+
 DROP DATABASE IF EXISTS SB_AM;
 DROP TABLE SB_AM;
 CREATE DATABASE SB_AM;
 USE SB_AM;
 
 # 게시물 테이블 생성
+
 CREATE TABLE article (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -15,6 +17,7 @@ CREATE TABLE article (
 );
 
 # 게시물 테스트 데이터 생성
+
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -39,6 +42,7 @@ FROM article;
 SELECT LAST_INSERT_ID()
 
 # 회원 테이블 생성
+
 CREATE TABLE `member` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -55,6 +59,7 @@ CREATE TABLE `member` (
 );
 
 # 회원 테스트 데이터 생성(관리자 회원)
+
 INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -67,6 +72,7 @@ cellphoneNum = '01012341234',
 email = 'abcdef@gmail.com';
 
 # 회원 테스트 데이터 생성(일반 회원)
+
 INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -98,12 +104,13 @@ ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateD
 UPDATE article SET memberId = 2 WHERE memberId=0
 
 #기존게시물에 회원명 JOIN으로 추가해서 보여주기
-SELECT article.*,`member`.nickname AS extra_WriterName 
+SELECT article.*,`member`.nickname AS extra__writerName 
 FROM article LEFT JOIN `member`
 ON article.memberId = `member`.id
 WHERE article.id= 1
 
 # 게시판 테이블 생성
+
 CREATE TABLE board (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -115,6 +122,7 @@ CREATE TABLE board (
 );
 
 # 기본게시판 생성
+
 INSERT INTO board
 SET regDate =NOW(),
 updateDate = NOW(),
@@ -122,6 +130,7 @@ updateDate = NOW(),
 `name` = '공지사항';
 
 # 기본게시판 생성
+
 INSERT INTO board
 SET regDate =NOW(),
 updateDate = NOW(),
@@ -129,9 +138,11 @@ updateDate = NOW(),
 `name` = '자유게시판';
 
 # 게시판 테이블에 boardId 칼럼 추가
+
 ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER `memberId`;
 
 # 1,2번 게시물에 게시판 정보 추가
+
 UPDATE article
 SET boardId = 1
 WHERE id IN (1,2);
@@ -141,6 +152,7 @@ SET boardId = 2
 WHERE id IN (3,4);
 
 # WHERE 1=1(참)을 이용해 boardId에 해당하는 게시글목록만 가져오기
+
 SELECT article.*,`member`.nickname AS extra_writerName 
 FROM article LEFT JOIN `member` 
 ON article.memberId = `member`.Id
@@ -161,7 +173,71 @@ FROM article;
 SELECT FLOOR(RAND()*2)+1
 
 # 게시물 테이블에 조회수 칼럼 추가
+
 ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
+# reationPoint 테이블생성
+CREATE TABLE reationPoint (
+ id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+ regDate DATETIME NOT NULL,
+ updateDate DATETIME NOT NULL,
+ memberId INT(10) UNSIGNED NOT NULL,
+ relTypecode CHAR(50) NOT NULL COMMENT '관련 데이터 타입 코드',
+ relId INT(10) UNSIGNED NOT NULL COMMENT '관련 데이터 번호',
+ `point` SMALLINT(2) NOT NULL
+);
+
+#reationPoint테이블에 테스트데이터 생성하기
+#1번회원이 2번게시글에 대해서 싫어요 클릭시
+INSERT INTO reationPoint SET
+regDate = NOW(),
+updateDate = NOW(),
+memberId=1,
+relTypecode = 'article',
+relId = 2,
+`point` = -1
+
+#1번회원이 2번게시글에 대해서 좋아요 클릭시
+INSERT INTO reationPoint SET
+regDate = NOW(),
+updateDate = NOW(),
+memberId=1,
+relTypecode = 'article',
+relId = 2,
+`point` = 1
+
+#2번회원이 1번게시글에 대해서 싫어요 클릭시
+INSERT INTO reationPoint SET
+regDate = NOW(),
+updateDate = NOW(),
+memberId=2,
+relTypecode = 'article',
+relId = 1,
+`point` = -1
+
+#2번회원이 1번게시글에 대해서 좋아요 클릭시
+INSERT INTO reationPoint SET
+regDate = NOW(),
+updateDate = NOW(),
+memberId=2,
+relTypecode = 'article',
+relId = 1,
+`point` = 1
+
+#3번회원이 1번게시글에 대해서 좋아요 클릭시
+INSERT INTO reationPoint SET
+regDate = NOW(),
+updateDate = NOW(),
+memberId=3,
+relTypecode = 'article',
+relId = 1,
+`point` = 1
+
+
+
+SELECT * FROM reationPoint
 SELECT * FROM article
+
+
+```
 
