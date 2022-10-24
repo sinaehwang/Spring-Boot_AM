@@ -31,9 +31,10 @@
 			<table class="table table-fixed w-full">
 				<colgroup>
 					<col width="80" />
-					<col width="140" />
+					<col width="150" />
 					<col />
-					<col width="140" />
+					<col width="200" />
+                    <col width="80" />
 				</colgroup>
 				<thead>
 					<tr>
@@ -49,7 +50,7 @@
 					<c:forEach var="article" items="${articles }">
 						<tr class="hover">
 							<td>${article.id}</td>
-							<td>${article.regDate.substring(2,16)}</td>
+							<td>${article.forPrintType1RegDate}</td>
 							<td>
 								<a class="hover:underline block w-full truncate" href="../article/detail?id=${article.id}">${article.title}</a>
 							</td>

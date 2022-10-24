@@ -22,8 +22,10 @@ public class Article {
 	private boolean extra__actorCanDelete;
 	private boolean extra__actorCanModify;
 	
+	public String getForPrintType1RegDate() {
 
-
+		return regDate.substring(2, 16).replace(" ", "<br />");
+	}
 
 	
 }
