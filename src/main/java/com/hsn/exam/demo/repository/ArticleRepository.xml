@@ -15,10 +15,13 @@
 
 
 	<select id="getForPrintArticle" resultType="Article">
-		SELECT article.*,`member`.nickname AS extra_WriterName 
-		FROM article LEFT JOIN `member`
-		ON article.memberId = `member`.id
-		WHERE article.id
+		SELECT A.*,
+		M.nickname AS extra__writerName
+		FROM article AS A
+		LEFT JOIN `member` AS
+		M
+		ON A.memberId = M.id
+		WHERE A.id
 		= #{id}
 	</select>
 

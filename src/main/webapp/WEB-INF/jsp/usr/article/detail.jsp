@@ -66,7 +66,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td>${article.extra_WriterName}</td>
+			<td>${article.extra__writerName}</td>
 		</tr>
 		<tr>
             <th>조회수</th>
