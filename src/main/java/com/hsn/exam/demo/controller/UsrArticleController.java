@@ -22,7 +22,7 @@ import com.hsn.exam.demo.vo.Rq;
 @Controller
 public class UsrArticleController {
 
-	// 인스턴스 변수
+// 인스턴스 변수
 	@Autowired
 	private ArticleService articleService;
 	@Autowired
