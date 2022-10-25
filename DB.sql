@@ -254,8 +254,26 @@ ON RP.relId = A.id
 AND RP.relTypecode = 'article'
 GROUP BY A.id
 
+#getForPrintArticle 추천수가 포함된 해당 id 게시글 객체 1개 불러오기
+
+SELECT A.*, M.nickname AS extra__writerName,
+IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+SUM(IF(RP.point>0, RP.point ,0)) AS extra__goodReactionPoint,
+SUM(IF(RP.point<0, RP.point,0)) AS extra__badReactionPoint
+FROM article AS A
+LEFT JOIN `member` AS M
+ON A.memberId = M.id
+LEFT JOIN 
+reactionPoint AS RP
+ON RP.relId = A.id
+AND RP.relTypecode = 'article'
+WHERE A.id = 3
+GROUP BY A.id
+
+
 SELECT * FROM reactionPoint
 SELECT * FROM article
+SELECT * FROM `member`
 
 
 ```

@@ -12,15 +12,14 @@ import com.hsn.exam.demo.vo.Article;
 public interface ArticleRepository {
 
 	public void writeArticle(int boardId, String title, String body, int loginedMemberId);
-
-	
 	
 	@Select("""
+			<script>
 			
 			SELECT A.*, M.nickname AS extra__writerName,
 			IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
-			SUM(IF(RP.point>0, RP.point ,0)) AS extra__goodReactionPoint,
-			SUM(IF(RP.point<0, RP.point,0)) AS extra__badReactionPoint
+			SUM(IF(RP.point&gt; 0, RP.point, 0)) AS extra__goodReactionPoint,
+			SUM(IF(RP.point&lt; 0, RP.point, 0)) AS extra__badReactionPoint
 			FROM article AS A
 			LEFT JOIN `member` AS M
 			ON A.memberId = M.id
@@ -30,6 +29,8 @@ public interface ArticleRepository {
 			AND RP.relTypecode = 'article'
 			WHERE A.id = #{id}
 			GROUP BY A.id
+			
+			</script>
 			""")
 
 	public Article getForPrintArticle(int id);
