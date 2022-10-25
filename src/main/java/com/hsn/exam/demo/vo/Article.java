@@ -21,6 +21,9 @@ public class Article {
 	private String extra__writerName;
 	private boolean extra__actorCanDelete;
 	private boolean extra__actorCanModify;
+	private int extra__goodReactionPoint;
+	private int extra__badReactionPoint;
+	private int extra__sumReactionPoint;
 	
 	public String getForPrintType1RegDate() {
 

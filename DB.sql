@@ -177,7 +177,7 @@ SELECT FLOOR(RAND()*2)+1
 ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
 # reationPoint 테이블생성
-CREATE TABLE reationPoint (
+CREATE TABLE reactionPoint  (
  id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
  regDate DATETIME NOT NULL,
  updateDate DATETIME NOT NULL,
@@ -187,9 +187,10 @@ CREATE TABLE reationPoint (
  `point` SMALLINT(2) NOT NULL
 );
 
+
 #reationPoint테이블에 테스트데이터 생성하기
 #1번회원이 2번게시글에 대해서 싫어요 클릭시
-INSERT INTO reationPoint SET
+INSERT INTO reactionPoint SET
 regDate = NOW(),
 updateDate = NOW(),
 memberId=1,
@@ -198,7 +199,7 @@ relId = 2,
 `point` = -1
 
 #1번회원이 2번게시글에 대해서 좋아요 클릭시
-INSERT INTO reationPoint SET
+INSERT INTO reactionPoint SET
 regDate = NOW(),
 updateDate = NOW(),
 memberId=1,
@@ -207,7 +208,7 @@ relId = 2,
 `point` = 1
 
 #2번회원이 1번게시글에 대해서 싫어요 클릭시
-INSERT INTO reationPoint SET
+INSERT INTO reactionPoint SET
 regDate = NOW(),
 updateDate = NOW(),
 memberId=2,
@@ -216,7 +217,7 @@ relId = 1,
 `point` = -1
 
 #2번회원이 1번게시글에 대해서 좋아요 클릭시
-INSERT INTO reationPoint SET
+INSERT INTO reactionPoint SET
 regDate = NOW(),
 updateDate = NOW(),
 memberId=2,
@@ -225,18 +226,13 @@ relId = 1,
 `point` = 1
 
 #3번회원이 1번게시글에 대해서 좋아요 클릭시
-INSERT INTO reationPoint SET
+INSERT INTO reactionPoint SET
 regDate = NOW(),
 updateDate = NOW(),
 memberId=3,
 relTypecode = 'article',
 relId = 1,
 `point` = 1
-
-
-
-SELECT * FROM reationPoint
-SELECT * FROM article
 
 
 ```
