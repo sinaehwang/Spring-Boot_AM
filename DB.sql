@@ -234,6 +234,29 @@ relTypecode = 'article',
 relId = 1,
 `point` = 1
 
+#artice 전체을 서브쿼리로 묶고 reationPoint테이블을 조인해서 조회/좋아요가 눌린 누적수/싫어요가 눌린 누적수
+SELECT A.*,
+IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+SUM(IF(RP.point>0, RP.point ,0)) AS extra__goodReactionPoint,
+SUM(IF(RP.point<0, RP.point,0)) AS extra__badReactionPoint
+FROM
+(
+    SELECT A.*, M.nickname AS
+    extra__writerName
+    FROM article AS A
+    LEFT JOIN `member` AS M
+    ON A.memberId= M.id WHERE 1
+    ORDER BY A.id DESC
+) AS A
+LEFT JOIN 
+reactionPoint AS RP
+ON RP.relId = A.id
+AND RP.relTypecode = 'article'
+GROUP BY A.id
+
+SELECT * FROM reactionPoint
+SELECT * FROM article
+
 
 ```
 
