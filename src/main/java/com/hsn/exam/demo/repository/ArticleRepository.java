@@ -13,6 +13,25 @@ public interface ArticleRepository {
 
 	public void writeArticle(int boardId, String title, String body, int loginedMemberId);
 
+	
+	
+	@Select("""
+			
+			SELECT A.*, M.nickname AS extra__writerName,
+			IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+			SUM(IF(RP.point>0, RP.point ,0)) AS extra__goodReactionPoint,
+			SUM(IF(RP.point<0, RP.point,0)) AS extra__badReactionPoint
+			FROM article AS A
+			LEFT JOIN `member` AS M
+			ON A.memberId = M.id
+			LEFT JOIN 
+			reactionPoint AS RP
+			ON RP.relId = A.id
+			AND RP.relTypecode = 'article'
+			WHERE A.id = #{id}
+			GROUP BY A.id
+			""")
+
 	public Article getForPrintArticle(int id);
 
 	@Select("""

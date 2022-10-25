@@ -25,10 +25,23 @@
 						<th>수정날짜</th>
 						<td>${article.updateDate }</td>
 					</tr>
+          
+                    <tr>
+                        <th>조회수</th>
+                        <td>
+                           <span class="badge article-detail__hit-count">${article.hitCount }</span>
+                        </td>
+                    </tr>
 					<tr>
 						<th>작성자</th>
 						<td>${article.extra__writerName }</td>
 					</tr>
+                    <tr>
+                          <th>추천수(좋아요)</th>
+                          <td>${article.extra__goodReactionPoint }</td> 
+                    </tr>
+                
+          
 					<tr>
 						<th>제목</th>
 						<td><input class="w-full input input-bordered  max-w-xs" type="text" name="title" placeholder="제목을 입력해주세요"
