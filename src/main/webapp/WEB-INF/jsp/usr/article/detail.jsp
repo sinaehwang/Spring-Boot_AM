@@ -2,21 +2,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="ARTICLE DETAIL" />
 <%@ include file="../common/head.jspf"%>
-
-
 <script>
 	const params = {};
 	params.id = parseInt('${param.id}');
 </script>
-
 <script>
 	function ArticleDetail__increaseHitCount() {
 		const localStorageKey = 'article__' + params.id + '__alreadyView';
-		
-		if (localStorage.getItem(localStorageKey)){
+		if (localStorage.getItem(localStorageKey)) {
 			return;
 		}
-		localStorage.setItem(localStorageKey,true);
+		localStorage.setItem(localStorageKey, true);
 		$.get('../article/doIncreaseHitCountRd', {
 			id : params.id,
 			ajaxMode : 'Y'
@@ -31,16 +27,13 @@
 		setTimeout(ArticleDetail__increaseHitCount, 2000);
 	})
 </script>
-
-
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-	<div class ="table-box-type-1">
-	<table>
-			<colgroup>
-				<col width="200" />
-			</colgroup>
-		
+		<div class="table-box-type-1">
+			<table>
+				<colgroup>
+					<col width="200" />
+				</colgroup>
 				<tbody>
 					<tr>
 						<th>번호</th>
@@ -66,15 +59,19 @@
 						<th>작성자</th>
 						<td>${article.extra__writerName }</td>
 					</tr>
-
 					<tr>
-						<th>추천수</th>
+						<th>추천</th>
 						<td>
-                           <span class="badge"> ${article.extra__goodReactionPoint } </span>
-                           <span>&nbsp;</span>
-                           <button class="btn btn-outline btn btn-sm" type="button" >좋아요💖</button>
-                           <button class="btn btn-outline btn btn-sm" type="button" >싫어요🤍</button>
-                        </td>
+							
+								<span class="badge">${article.extra__goodReactionPoint }</span>
+								<span>&nbsp;</span>
+								<c:if test="${actorCanMakeReaction }">
+									<button class="btn btn-xs">좋아요💖</button>
+									<button class="btn btn-xs">싫어요🤍</button>
+								</c:if>
+
+							
+						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
@@ -85,9 +82,8 @@
 						<td>${article.body }</td>
 					</tr>
 				</tbody>
-            </table>
+			</table>
 		</div>
-
 		<div class="btns">
 			<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
 			<c:if test="${article.extra__actorCanModify }">

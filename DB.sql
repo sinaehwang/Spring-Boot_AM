@@ -1,13 +1,11 @@
 ```sql
 # DB 생성
-
 DROP DATABASE IF EXISTS SB_AM;
 DROP TABLE SB_AM;
 CREATE DATABASE SB_AM;
 USE SB_AM;
 
 # 게시물 테이블 생성
-
 CREATE TABLE article (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -17,19 +15,16 @@ CREATE TABLE article (
 );
 
 # 게시물 테스트 데이터 생성
-
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목1',
 `body` = '내용1';
-
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목2',
 `body` = '내용2';
-
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -38,11 +33,9 @@ title = '제목3',
 
 SELECT * 
 FROM article;
-
 SELECT LAST_INSERT_ID()
 
 # 회원 테이블 생성
-
 CREATE TABLE `member` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -59,7 +52,6 @@ CREATE TABLE `member` (
 );
 
 # 회원 테스트 데이터 생성(관리자 회원)
-
 INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -72,7 +64,6 @@ cellphoneNum = '01012341234',
 email = 'abcdef@gmail.com';
 
 # 회원 테스트 데이터 생성(일반 회원)
-
 INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -93,15 +84,15 @@ loginPw = 'user2',
 cellphoneNum = '01098769876',
 email = 'zxcvbnm@gmail.com';
 
-SELECT*FROM `member`
 
-SELECT*FROM article
 
 #게시물테이블에 회원정보(memberId)추가
 ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
 
 #기존 게시물의 작성자를 2번으로 수정
-UPDATE article SET memberId = 2 WHERE memberId=0
+UPDATE article
+SET memberId = 2
+WHERE memberId = 0;
 
 #기존게시물에 회원명 JOIN으로 추가해서 보여주기
 SELECT article.*,`member`.nickname AS extra__writerName 
@@ -109,28 +100,27 @@ FROM article LEFT JOIN `member`
 ON article.memberId = `member`.id
 WHERE article.id= 1
 
-# 게시판 테이블 생성
 
+# 게시판 테이블 생성
 CREATE TABLE board (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
-    `code` CHAR(20) NOT NULL UNIQUE COMMENT 'notice(공지사항), free1(자유게시판1), free2(자유게시판2), ...',
-    `name` CHAR(20) NOT NULL UNIQUE COMMENT '게시판 이름',
-    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부(0=삭제전,1=삭제)',
+    `code` CHAR(50) NOT NULL UNIQUE COMMENT 'notice(공지사항), free1(자유게시판1), free2(자유게시판2),..',
+    `name` CHAR(50) NOT NULL UNIQUE COMMENT '게시판 이름',
+    delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부 (0=삭제 전,1=삭제 후)',
     delDate DATETIME COMMENT '삭제날짜'
 );
 
 # 기본게시판 생성
-
 INSERT INTO board
-SET regDate =NOW(),
+SET regDate = NOW(),
 updateDate = NOW(),
-`code`= 'notice',
+`code` = 'notice',
 `name` = '공지사항';
 
-# 기본게시판 생성
 
+# 기본게시판 생성
 INSERT INTO board
 SET regDate =NOW(),
 updateDate = NOW(),
@@ -138,21 +128,22 @@ updateDate = NOW(),
 `name` = '자유게시판';
 
 # 게시판 테이블에 boardId 칼럼 추가
-
 ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER `memberId`;
 
-# 1,2번 게시물에 게시판 정보 추가
-
+# 1,2 번 게시물을 공지사항 게시물로 수정
 UPDATE article
 SET boardId = 1
 WHERE id IN (1,2);
 
+
+# 3 번 게시물을 자유게시판 게시물로 수정
 UPDATE article
 SET boardId = 2
-WHERE id IN (3,4);
+WHERE id IN (3);
+
+
 
 # WHERE 1=1(참)을 이용해 boardId에 해당하는 게시글목록만 가져오기
-
 SELECT article.*,`member`.nickname AS extra_writerName 
 FROM article LEFT JOIN `member` 
 ON article.memberId = `member`.Id
@@ -160,79 +151,75 @@ WHERE 1=1
 AND article.boardId = 1
 ORDER BY article.id DESC
 
-
 #게시물갯수늘리기
 INSERT INTO article
 (
 regDate,updateDate,memberId,boardId,title,`body`
 )
-
 SELECT NOW(),NOW(),FLOOR(RAND()*2)+1,FLOOR(RAND()*2)+1,CONCAT('제목_',RAND()),CONCAT('내용_',RAND())
 FROM article;
-
 SELECT FLOOR(RAND()*2)+1
 
 # 게시물 테이블에 조회수 칼럼 추가
-
 ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
 
 # reationPoint 테이블생성
 CREATE TABLE reactionPoint  (
- id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
- regDate DATETIME NOT NULL,
- updateDate DATETIME NOT NULL,
- memberId INT(10) UNSIGNED NOT NULL,
- relTypecode CHAR(50) NOT NULL COMMENT '관련 데이터 타입 코드',
- relId INT(10) UNSIGNED NOT NULL COMMENT '관련 데이터 번호',
- `point` SMALLINT(2) NOT NULL
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    relTypeCode CHAR(50) NOT NULL COMMENT '관련 데이터 타입 코드',
+	relId INT(10) UNSIGNED NOT NULL COMMENT '관련 데이터  번호',
+    `point` SMALLINT(2) NOT NULL
 );
 
-
-#reationPoint테이블에 테스트데이터 생성하기
-#1번회원이 2번게시글에 대해서 싫어요 클릭시
-INSERT INTO reactionPoint SET
-regDate = NOW(),
+# reactionPoint 테스트 데이터
+# 1번 회원이 1번 article 에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
 updateDate = NOW(),
-memberId=1,
-relTypecode = 'article',
+memberId = 1,
+relTypeCode = 'article',
+relId = 1,
+`point` = -1;
+
+# 1번 회원이 2번 article 에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
 relId = 2,
-`point` = -1
+`point` = 1;
 
-#1번회원이 2번게시글에 대해서 좋아요 클릭시
-INSERT INTO reactionPoint SET
-regDate = NOW(),
+# 2번 회원이 1번 article 에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
 updateDate = NOW(),
-memberId=1,
-relTypecode = 'article',
+memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`point` = -1;
+
+# 2번 회원이 2번 article 에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
 relId = 2,
-`point` = 1
+`point` = -1;
 
-#2번회원이 1번게시글에 대해서 싫어요 클릭시
-INSERT INTO reactionPoint SET
-regDate = NOW(),
+# 3번 회원이 1번 article 에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
 updateDate = NOW(),
-memberId=2,
-relTypecode = 'article',
+memberId = 3,
+relTypeCode = 'article',
 relId = 1,
-`point` = -1
-
-#2번회원이 1번게시글에 대해서 좋아요 클릭시
-INSERT INTO reactionPoint SET
-regDate = NOW(),
-updateDate = NOW(),
-memberId=2,
-relTypecode = 'article',
-relId = 1,
-`point` = 1
-
-#3번회원이 1번게시글에 대해서 좋아요 클릭시
-INSERT INTO reactionPoint SET
-regDate = NOW(),
-updateDate = NOW(),
-memberId=3,
-relTypecode = 'article',
-relId = 1,
-`point` = 1
+`point` = 1;
 
 #artice 전체을 서브쿼리로 묶고 reationPoint테이블을 조인해서 조회/좋아요가 눌린 누적수/싫어요가 눌린 누적수
 SELECT A.*,
@@ -254,8 +241,8 @@ ON RP.relId = A.id
 AND RP.relTypecode = 'article'
 GROUP BY A.id
 
-#getForPrintArticle 추천수가 포함된 해당 id 게시글 객체 1개 불러오기
 
+#getForPrintArticle 추천수가 포함된 해당 id 게시글 객체 1개 불러오기
 SELECT A.*, M.nickname AS extra__writerName,
 IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
 SUM(IF(RP.point>0, RP.point ,0)) AS extra__goodReactionPoint,
@@ -270,11 +257,16 @@ AND RP.relTypecode = 'article'
 WHERE A.id = 3
 GROUP BY A.id
 
+#게시글에 대해 추천버튼을 누를수 있는지 권한체크(쿼리실행시 null값이라면 추천버튼을 보여줘야함)
+SELECT IFNULL(SUM(RP.point),0) AS s
+FROM reactionPoint AS RP
+WHERE RP.relTypeCode = 'article'
+AND RP.relId = #{id}
+AND RP.memberId = #{memberId}
+
 
 SELECT * FROM reactionPoint
 SELECT * FROM article
 SELECT * FROM `member`
-
-
 ```
 
