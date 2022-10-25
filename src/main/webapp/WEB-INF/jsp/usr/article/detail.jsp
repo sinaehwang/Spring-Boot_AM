@@ -68,8 +68,13 @@
 					</tr>
 
 					<tr>
-						<th>추천수(좋아요)</th>
-						<td>${article.extra__goodReactionPoint }</td>
+						<th>추천수</th>
+						<td>
+                           <span class="badge"> ${article.extra__goodReactionPoint } </span>
+                           <span>&nbsp;</span>
+                           <button class="btn btn-outline btn btn-sm" type="button" >좋아요💖</button>
+                           <button class="btn btn-outline btn btn-sm" type="button" >싫어요🤍</button>
+                        </td>
 					</tr>
 					<tr>
 						<th>제목</th>

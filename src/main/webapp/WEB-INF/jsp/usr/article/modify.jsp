@@ -36,7 +36,7 @@
 						<td>${article.extra__writerName }</td>
 					</tr>
                     <tr>
-                          <th>추천수(좋아요)</th>
+                          <th>추천수</th>
                           <td>${article.extra__goodReactionPoint }</td> 
                     </tr>
 					<tr>
