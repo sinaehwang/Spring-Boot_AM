@@ -151,4 +151,9 @@ public interface ArticleRepository {
 						""")
 	public int getSumReactionPointByMemberId(int memberId, int id);
 
+	
+	
+	
+	public Object increaseGoodRp(int id);
+
 }

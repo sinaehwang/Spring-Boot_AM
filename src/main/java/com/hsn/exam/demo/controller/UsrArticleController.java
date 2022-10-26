@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hsn.exam.demo.service.ArticleService;
 import com.hsn.exam.demo.service.BoardService;
+import com.hsn.exam.demo.service.ReactionPointService;
 import com.hsn.exam.demo.util.Ut;
 import com.hsn.exam.demo.vo.Article;
 import com.hsn.exam.demo.vo.Board;
@@ -29,6 +30,8 @@ public class UsrArticleController {
 	private BoardService boardService;
 	@Autowired
 	private Rq rq;
+	@Autowired
+	private ReactionPointService reactionPointService;
 	
 	
 	// 액션메서드
@@ -107,6 +110,12 @@ public class UsrArticleController {
 		boolean actorCanMakeReaction = articleService.actorCanMakeReaction(rq.getLoginedMemberId(), id);
 
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction);
+		
+		model.addAttribute("isAlreadyAddGoodRp", reactionPointService.isAlreadyAddGoodRp(id));//리액션 실행여부를 파라미터로 넘겨줌
+		
+		model.addAttribute("isAlreadyAddBadRp", reactionPointService.isAlreadyAddBadRp(id));
+		
+		
 
 		return "usr/article/detail";
 		
