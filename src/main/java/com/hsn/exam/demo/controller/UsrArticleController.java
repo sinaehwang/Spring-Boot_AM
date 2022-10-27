@@ -32,6 +32,7 @@ public class UsrArticleController {
 	private Rq rq;
 	@Autowired
 	private ReactionPointService reactionPointService;
+	
 	// 액션메서드
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody

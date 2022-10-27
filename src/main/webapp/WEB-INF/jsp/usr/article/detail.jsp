@@ -62,17 +62,13 @@
 					<tr>
 						<th>추천</th>
 						<td>
-							
 								<span class="badge">${article.goodReactionPoint }</span>
-								<span>&nbsp;</span>
-                                <c:if test="actorCanMakeReaction">
-                                      <button class = "btn btn-xs">좋아요💖</button>
-                                </c:if>
-                                <c:if test="actorCanMakeReaction">
+                                <c:if test="${actorCanMakeReaction }">
                                       <span>&nbsp;</span>
-                                      <button class = "btn btn-xs">싫어요🤍</button>
+                                      <a href="/usr/reactionPoint.doGoodReaction" class = "btn btn-xs"> 좋아요💖</a>
+                                      <span>&nbsp;</span>
+                                      <a href="/usr/reactionPoint.doBadReaction" class = "btn btn-xs">싫어요🤍</a>
                                 </c:if>
-
 						</td>
 					</tr>
 					<tr>
