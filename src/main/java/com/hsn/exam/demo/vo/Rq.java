@@ -86,11 +86,11 @@ public class Rq {
 	}
 
 	public String jsHistoryBack(String msg) {
-		return Ut.jsHistoryBack(msg);
+		return Ut.jsHistoryBack(msg); //alert로 메세지 출력후 history.back
 	}
 
 	public String jsReplace(String msg, String uri) {
-		return Ut.jsReplace(msg, uri);
+		return Ut.jsReplace(msg, uri); //alert로 메세지 출력후 원하는 url주소로 돌아가게함
 	}
 	// 해당 메서드는 Rq 객체의 생성을 유도한다.
 	// 삭제 금지, 편의를 위하여 BeforeActionInterceptor 에서 호출해줘야 한다.

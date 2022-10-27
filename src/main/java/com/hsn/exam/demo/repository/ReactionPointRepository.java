@@ -1,5 +1,6 @@
 package com.hsn.exam.demo.repository;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 @Mapper
@@ -15,5 +16,33 @@ public interface ReactionPointRepository {
 			</script>
 						""")
 	public int getSumReactionPointByMemberId(int actorId,String relTypeCode, int relId);
+
+	
+	@Insert("""
+			<script>
+				INSERT INTO reactionPoint
+				SET regDate = NOW(),
+				updateDate = NOW(),
+				memberId = #{actorId},
+				relTypeCode = #{relTypeCode},
+				relId = #{relId},
+				`point` = 1
+			</script>
+			""")
+	public void doGoodReaction(int actorId, String relTypeCode, int relId);//reactionPoint테이블에 goodreaction 내용을 추가해줘야함
+
+
+	@Insert("""
+			<script>
+				INSERT INTO reactionPoint
+				SET regDate = NOW(),
+				updateDate = NOW(),
+				memberId = #{actorId},
+				relTypeCode = #{relTypeCode},
+				relId = #{relId},
+				`point` = -1
+			</script>
+			""")
+	public void doBadReaction(int actorId, String relTypeCode, int relId);
 
 }

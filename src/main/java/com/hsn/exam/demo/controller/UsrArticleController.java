@@ -108,6 +108,8 @@ public class UsrArticleController {
 		
 		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(),"article", id);
 
+		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction);
+		
 		return "usr/article/detail";
 		
 	}

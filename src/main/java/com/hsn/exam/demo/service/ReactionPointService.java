@@ -18,4 +18,15 @@ public class ReactionPointService {
 		return reactionPointRepository.getSumReactionPointByMemberId(actorId,relTypeCode, relId) == 0;
 	}
 
+	public void doGoodReaction(int actorId, String relTypeCode, int relId) {
+
+		 reactionPointRepository.doGoodReaction(actorId,relTypeCode,relId);
+		
+	}
+
+	public void doBadReaction(int actorId, String relTypeCode, int relId) {
+
+		reactionPointRepository.doBadReaction(actorId,relTypeCode,relId);
+	}
+
 }
