@@ -63,7 +63,7 @@
 						<th>추천</th>
 						<td>
 							
-								<span class="badge">${article.extra__goodReactionPoint }</span>
+								<span class="badge">${article.goodReactionPoint }</span>
 								<span>&nbsp;</span>
 								<c:if test="${actorCanMakeReaction }">
 									<button class="btn btn-xs">좋아요💖</button>

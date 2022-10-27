@@ -221,14 +221,6 @@ relTypeCode = 'article',
 relId = 1,
 `point` = 1;
 
-# 3번 회원이 2번 article 에 좋아요
-INSERT INTO reactionPoint
-SET regDate = NOW(),
-updateDate = NOW(),
-memberId = 3,
-relTypeCode = 'article',
-relId = 2,
-`point` = 1;
 
 #artice 전체을 서브쿼리로 묶고 reationPoint테이블을 조인해서 조회/좋아요가 눌린 누적수/싫어요가 눌린 누적수
 SELECT A.*,

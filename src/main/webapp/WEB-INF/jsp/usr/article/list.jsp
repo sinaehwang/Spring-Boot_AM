@@ -58,7 +58,7 @@
 							</td>
 							<td>${article.extra__writerName}</td>
 							<td>${article.hitCount}</td>
-                            <td>${article.extra__sumReactionPoint}</td>
+                            <td>${article.goodReactionPoint}</td>
 
 						</tr>
 					</c:forEach>
