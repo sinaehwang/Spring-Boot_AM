@@ -119,11 +119,7 @@ public class ArticleService {
 		return articleRepository.getArticleHitCount(id);
 	}
 
-	public boolean actorCanMakeReaction(int loginedMemberId, int id) {
-		
-		return articleRepository.getSumReactionPointByMemberId(loginedMemberId, id) == 0;
-		//로그인정보와게시글정보로 추천수합계정보를 가져왔을때 널값(0)일경우 해당게시물에 추천기록이 없음, true가반환되서 추천수버튼이 보여지게됨
- 	}
+
 
 
 	

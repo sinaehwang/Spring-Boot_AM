@@ -65,12 +65,14 @@
 							
 								<span class="badge">${article.goodReactionPoint }</span>
 								<span>&nbsp;</span>
-								<c:if test="${actorCanMakeReaction }">
-									<button class="btn btn-xs">좋아요💖</button>
-									<button class="btn btn-xs">싫어요🤍</button>
-								</c:if>
+                                <c:if test="actorCanMakeReaction">
+                                      <button class = "btn btn-xs">좋아요💖</button>
+                                </c:if>
+                                <c:if test="actorCanMakeReaction">
+                                      <span>&nbsp;</span>
+                                      <button class = "btn btn-xs">싫어요🤍</button>
+                                </c:if>
 
-							
 						</td>
 					</tr>
 					<tr>
