@@ -221,6 +221,15 @@ relTypeCode = 'article',
 relId = 1,
 `point` = 1;
 
+# 3번 회원이 2번 article 에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 2,
+`point` = 1;
+
 #artice 전체을 서브쿼리로 묶고 reationPoint테이블을 조인해서 조회/좋아요가 눌린 누적수/싫어요가 눌린 누적수
 SELECT A.*,
 IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
@@ -263,10 +272,41 @@ FROM reactionPoint AS RP
 WHERE RP.relTypeCode = 'article'
 AND RP.relId = #{id}
 AND RP.memberId = #{memberId}
+				
+# 게시글에 goodReactionPoint,badReactionPoint컬럼추가하기
+ALTER TABLE article ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE article ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
+#각게시글별 좋아요와 싫어요의 총합을 조회하기
+SELECT * FROM reactionPoint AS RP
+GROUP BY RP.relTypeCode, RP.relId
+
+SELECT RP.relTypeCode, RP.relId, 
+SUM(IF(RP.point>0, RP.point, 0)) AS goodReactionPoint,
+SUM(IF(RP.point<0, RP.point*-1, 0)) AS badReactionPoint
+FROM reactionPoint AS RP
+GROUP BY RP.relTypeCode, RP.relId 
+
+#게시글과 추천수 테이블에 둘다업데이트가 되기위해서 게시글을 UPDATE해줘야함(JOIN UPDATE사용)
+UPDATE article AS A
+INNER JOIN(
+    SELECT RP.relTypeCode, RP.relId, 
+    SUM(IF(RP.point>0, RP.point, 0)) AS goodReactionPoint,
+    SUM(IF(RP.point<0, RP.point*-1, 0)) AS badReactionPoint
+    FROM reactionPoint AS RP
+    GROUP BY RP.relTypeCode, RP.relId 
+) AS RP_SUM
+ON A.id = RP_SUM.relId
+SET A.goodReactionPoint = RP_SUM.goodReactionPoint,
+ A.badReactionPoint = RP_SUM.badReactionPoint
+
+
+#게시글에 대해 눌렀다면 1, 없다면 0
+SELECT COUNT(*) FROM reactionPoint WHERE relId = 3 AND memberId = 1
 
 SELECT * FROM reactionPoint
 SELECT * FROM article
 SELECT * FROM `member`
+
 ```
 

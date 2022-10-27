@@ -33,15 +33,5 @@
 		SELECT LAST_INSERT_ID()
 	</select>
 	
-	<update id="increaseGoodRp">
-		UPDATE article
-		SET goodReactionPoint =
-		goodReactionPoint + 1
-		WHERE id =
-		#{id}
-	</update>
-	
-	
-	
 
 </mapper>
