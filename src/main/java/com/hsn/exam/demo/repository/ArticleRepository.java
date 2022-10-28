@@ -118,6 +118,26 @@ public interface ArticleRepository {
 	public int getArticleHitCount(int id);
 
 	
+	@Update("""
+			<script>
+			UPDATE article
+			SET goodReactionPoint = goodReactionPoint+1
+			WHERE id = #{relId}
+			</script>
+			""")
+	public void increaseGoodReaction(int actorId, int relId);
+
+	
+	@Update("""
+			<script>
+			UPDATE article
+			SET badReactionPoint = badReactionPoint+1
+			WHERE id = #{relId}
+			</script>
+			""")
+	public void increaseBadReaction(int actorId, int relId);
+
+	
 
 
 }

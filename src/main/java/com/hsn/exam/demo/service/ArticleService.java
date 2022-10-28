@@ -119,6 +119,16 @@ public class ArticleService {
 		return articleRepository.getArticleHitCount(id);
 	}
 
+	public void increaseGoodReaction(int actorId, int relId) {
+		
+		 articleRepository.increaseGoodReaction(actorId,relId);
+	}
+
+	public void increaseBadReaction(int actorId, int relId) {
+
+		articleRepository.increaseBadReaction(actorId,relId);
+	}
+
 
 
 

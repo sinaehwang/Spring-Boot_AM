@@ -97,4 +97,27 @@ public class Rq {
 	public void initOnBeforeActionInterceptor() {
 		
 	}
+	
+	public String getCurrentUri() {
+		
+		String CurrentUri = req.getRequestURI();//현재URI를 가져오고
+		
+		String queryString = req.getQueryString();//현재쿼리문을가져오고
+		
+		if(queryString != null && queryString.length()>0) {
+			
+			CurrentUri += "?"+queryString;//URI에 쿼리문을 붙여줌
+			
+		}
+		
+		return CurrentUri;
+		
+	}
+	
+	public String getEncodedCurrentUri() { //URI를 정제하는 메소드실행
+		
+		return Ut.getUriEncoded(getCurrentUri());
+	}
+	
+	
 }
