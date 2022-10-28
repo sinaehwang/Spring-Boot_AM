@@ -106,9 +106,15 @@ public class UsrArticleController {
 		
 		model.addAttribute("article", article);
 		
-		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(),"article", id);
+		ResultData actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(),"article", id);
 
-		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction);
+		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction.isSuccess());
+		
+		if(actorCanMakeReaction.isFail()) {
+			
+			return rq.jsHistoryBackOnView(actorCanMakeReaction.getMsg());
+			
+		}
 		
 		return "usr/article/detail";
 		

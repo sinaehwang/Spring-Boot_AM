@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hsn.exam.demo.repository.ReactionPointRepository;
+import com.hsn.exam.demo.vo.ResultData;
 
 @Service
 public class ReactionPointService {
@@ -14,11 +15,23 @@ public class ReactionPointService {
 	@Autowired
 	private ArticleService articleService;
 
-	public boolean actorCanMakeReaction(int actorId, String relTypeCode,int relId) {
-		if(actorId==0) {
-			return false;
+	public ResultData actorCanMakeReaction(int actorId, String relTypeCode,int relId) {
+		
+		if(actorId == 0) {
+			return ResultData.from("F-1", "로그인후 다시 이용해주시기 바랍니다.");
 		}
-		return reactionPointRepository.getSumReactionPointByMemberId(actorId,relTypeCode, relId) == 0;
+
+		int sumReactionPointByMemberId =  reactionPointRepository.getSumReactionPointByMemberId(actorId,relTypeCode, relId);
+		
+		
+		if(sumReactionPointByMemberId ==0) {
+			
+			return ResultData.from("S-1", "추천수 실행가능", sumReactionPointByMemberId, "sumReactionPointByMemberId");
+			
+		}
+		
+		return sumReactionPointByMemberId;
+		
 	}
 
 	public void doGoodReaction(int actorId, String relTypeCode, int relId) {
@@ -33,6 +46,20 @@ public class ReactionPointService {
 		 
 	}
 
+	public void decreaseGoodReaction(int actorId, String relTypeCode, int relId) {
+		
+		reactionPointRepository.decreaseGoodReaction(actorId,relTypeCode,relId);
+		
+		 if(relTypeCode.equals("article")) {
+			 
+			  articleService.decreaseGoodReaction(actorId,relId);
+			 
+		 }
+		
+		
+	}
+	
+
 	public void doBadReaction(int actorId, String relTypeCode, int relId) {
 
 		reactionPointRepository.doBadReaction(actorId,relTypeCode,relId);
@@ -44,5 +71,11 @@ public class ReactionPointService {
 		 }
 		 
 	}
+
+	public int isAlreadyPoint(int actorId, String relTypeCode, int relId) {
+		
+		return reactionPointRepository.isAlreadyPoint(actorId,relTypeCode,relId);
+	}
+
 
 }

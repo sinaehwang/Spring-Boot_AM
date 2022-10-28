@@ -1,5 +1,6 @@
 package com.hsn.exam.demo.repository;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -44,5 +45,32 @@ public interface ReactionPointRepository {
 			</script>
 			""")
 	public void doBadReaction(int actorId, String relTypeCode, int relId);
+
+
+	
+
+	@Select("""
+			<script>
+			
+				SELECT COUNT(*) FROM reactionPoint 
+				WHERE relId = #{relId} 
+				AND memberId = #{actorId}
+				
+			</script>
+						""")
+	public int isAlreadyPoint(int actorId, String relTypeCode, int relId);
+
+
+	
+	@Delete("""
+			<script>
+			
+				DELETE FROM reactionPoint
+				WHERE relId = #{relId}
+				AND memberId = #{actorId}
+				
+			</script>
+						""")
+	public void decreaseGoodReaction(int actorId, String relTypeCode, int relId);
 
 }

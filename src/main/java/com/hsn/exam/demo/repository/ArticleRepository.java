@@ -127,6 +127,16 @@ public interface ArticleRepository {
 			""")
 	public void increaseGoodReaction(int actorId, int relId);
 
+
+	@Update("""
+			<script>
+			UPDATE article
+			SET goodReactionPoint = goodReactionPoint-1
+			WHERE id = #{relId}
+			</script>
+			""")
+	
+	public void decreaseGoodReaction(int actorId, int relId);
 	
 	@Update("""
 			<script>
@@ -136,6 +146,9 @@ public interface ArticleRepository {
 			</script>
 			""")
 	public void increaseBadReaction(int actorId, int relId);
+
+	
+	
 
 	
 
