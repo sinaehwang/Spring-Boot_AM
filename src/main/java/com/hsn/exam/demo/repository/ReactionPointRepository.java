@@ -73,4 +73,16 @@ public interface ReactionPointRepository {
 						""")
 	public void decreaseGoodReaction(int actorId, String relTypeCode, int relId);
 
+
+	@Delete("""
+			<script>
+			
+				DELETE FROM reactionPoint
+				WHERE relId = #{relId}
+				AND memberId = #{actorId}
+				
+			</script>
+						""")
+	public void decreaseBadReaction(int actorId, String relTypeCode, int relId);
+
 }

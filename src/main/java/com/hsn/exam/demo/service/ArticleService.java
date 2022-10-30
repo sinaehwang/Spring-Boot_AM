@@ -134,6 +134,11 @@ public class ArticleService {
 		articleRepository.decreaseGoodReaction(actorId,relId);
 	}
 
+	public void decreaseBadReaction(int actorId, int relId) {
+
+		articleRepository.decreaseBadReaction(actorId,relId);
+	}
+
 
 
 
