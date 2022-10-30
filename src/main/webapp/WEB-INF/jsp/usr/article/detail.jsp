@@ -97,6 +97,7 @@
 				</tbody>
 			</table>
 		</div>
+        <br />
 		<div class="btns">
 			<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
 			<c:if test="${article.extra__actorCanModify }">
@@ -108,6 +109,46 @@
 				>삭제</a>
 			</c:if>
 		</div>
+    
+    <!-- 댓글구현시작 -->
+    
+    <div class="card w-full bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">댓글💬</h2>
+        <p><textarea class = "w-full input input-bordered" placeholder="댓글을 입력해주세요" rows="1"></textarea></p>
+        <div class="card-actions justify-end">
+          <button class="btn btn-primary">등록</button>
+        </div>
+        <br />
+        <h2 class="card-title w-full">댓글리스트</h2>
+          <ul id = "comment--box" class="list-group">
+                <li id = "comment--1" class="list-group-item flex justify-between">
+                    <div>댓글내용1</div>
+                    <div class = "flex content-center">
+                      <div>작성자:아무개 &nbsp; 작성일:2022</div>
+                      <button class="btn badge-xs mx-3 mb-3"> 수정</button>
+                      <button class="btn badge-xs mb-3"> 삭제</button>
+                   </div>
+                </li>
+                <li class="list-group-item flex justify-between">
+                    <div>댓글내용1</div>
+                    <div class = "flex content-center">
+                      <div>작성자:아무개 &nbsp; 작성일:2022</div>
+                      <button class="btn badge-xs mx-3 mb-3"> 수정</button>
+                      <button class="btn badge-xs mb-3"> 삭제</button>
+                   </div>
+                </li>
+          </ul>
+      </div>
+    </div>
+
+    
+
+    
+    
+    
+    
+    <!-- 댓글구현끝 --> 
 	</div>
 </section>
 <!-- <iframe src="http://localhost:8081/usr/article/doIncreaseHitCountRd?id=1" frameborder="0"></iframe> -->
