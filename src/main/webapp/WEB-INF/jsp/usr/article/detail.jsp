@@ -27,6 +27,29 @@
 		setTimeout(ArticleDetail__increaseHitCount, 2000);
 	})
 </script>
+
+<script>
+	
+	let ReplyWrite__submitFormDone = false; //중복전송방지위해 false로 변수 선언
+	function ReplyWrite__submitForm(form) {
+	  
+	  if(ReplyWrite__submitFormDone){//중복전송이 true로 바껴있다면 아무것도 리턴하지않아 중복발송을 막아줌
+	    return;
+	  }
+	  
+	  form.body.value = form.body.value.trim();
+	  
+	  if(form.body.value.length==0) {
+	    alert('댓글내용을 입력해주세요');
+	    form.body.focus();//하이라이팅효과
+	    return;
+	  }
+	  
+	  ReplyWrite__submitFormDone =true;
+	  form.submit(); //폼전송실행
+	}
+
+</script>
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="table-box-type-1">
@@ -114,7 +137,7 @@
     
     <div class="card w-full bg-base-100 shadow-xl">
       <div class="card-body">
-      <form class="" method="POST" action="../reply/doWriteReply">
+      <form class="table-box-type-1" method="POST" action="../reply/doWriteReply" onsubmit="ReplyWrite__submitForm(this); return false;"> <!-- 중복전송,내용미입력체크스크립트 -->
       <input type="hidden" name="relTypeCode" value="article" />
       <input type="hidden" name="relId" value="${article.id }" />
         <h2 class="card-title">댓글💬</h2>
