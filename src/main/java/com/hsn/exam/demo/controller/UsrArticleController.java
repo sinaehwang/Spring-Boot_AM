@@ -236,5 +236,7 @@ public class UsrArticleController {
 
 //			return ResultData.from("S-1", Ut.f("%d번 게시물을 수정했습니다", id), id);
 	}
+	
+
 
 }

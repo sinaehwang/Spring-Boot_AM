@@ -110,16 +110,22 @@
 			</c:if>
 		</div>
     
-    <!-- 댓글구현시작 -->
+    <!-- 댓글작성시작 -->
     
     <div class="card w-full bg-base-100 shadow-xl">
       <div class="card-body">
+      <form class="" method="POST" action="../reply/doWriteReply">
+      <input type="hidden" name="relTypeCode" value="article" />
+      <input type="hidden" name="relId" value="${article.id }" />
         <h2 class="card-title">댓글💬</h2>
-        <p><textarea class = "w-full input input-bordered" placeholder="댓글을 입력해주세요" rows="1"></textarea></p>
+        <p><textarea class = "w-full input input-bordered" name = "body" placeholder="댓글을 입력해주세요" rows="1" ></textarea></p>
         <div class="card-actions justify-end">
-          <button class="btn btn-primary">등록</button>
+          <button class="btn btn-primary" type="submit" value="등록" >등록</button>
         </div>
+     </form>
         <br />
+     <!-- 댓글리스트시작 -->
+     <form class="" method="POST" action="../reply/list" >
         <h2 class="card-title w-full">댓글리스트</h2>
           <ul id = "comment--box" class="list-group">
                 <li id = "comment--1" class="list-group-item flex justify-between">
@@ -130,15 +136,8 @@
                       <button class="btn badge-xs mb-3"> 삭제</button>
                    </div>
                 </li>
-                <li class="list-group-item flex justify-between">
-                    <div>댓글내용1</div>
-                    <div class = "flex content-center">
-                      <div>작성자:아무개 &nbsp; 작성일:2022</div>
-                      <button class="btn badge-xs mx-3 mb-3"> 수정</button>
-                      <button class="btn badge-xs mb-3"> 삭제</button>
-                   </div>
-                </li>
           </ul>
+          </form>
       </div>
     </div>
 

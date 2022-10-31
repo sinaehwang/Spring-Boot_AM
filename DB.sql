@@ -296,9 +296,24 @@ SET A.goodReactionPoint = RP_SUM.goodReactionPoint,
 #게시글에 대해 눌렀다면 1, 없다면 0
 SELECT COUNT(*) FROM reactionPoint WHERE relId = 3 AND memberId = 1
 
+# 댓글 테이블
+CREATE TABLE reply (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL,
+    relTypeCode CHAR(30) NOT NULL COMMENT '관련데이터타입코드',
+    relId INT(10) UNSIGNED NOT NULL COMMENT '관련데이터번호',
+    `body` TEXT NOT NULL
+);
+
+#해당게시판에서 댓글조회시 속도향상을위해 게시판번호컬럼을 인덱스로만들어줌
+ALTER TABLE reply ADD INDEX (relId);
+
+DESC reply
 SELECT * FROM reactionPoint
 SELECT * FROM article
 SELECT * FROM `member`
-
+SELECT * FROM reply
 ```
 

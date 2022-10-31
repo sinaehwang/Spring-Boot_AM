@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Board {
+public class Reply {
 	
 	private int id;
 	private String regDate;
 	private String updateDate;
-	private String code;
-	private String name;
-	private boolean delStatus;
-	private String delDate;
+	private int memberId;
+	private String relTypeCode;
+	private int relId;
+	private String body;
 
 }

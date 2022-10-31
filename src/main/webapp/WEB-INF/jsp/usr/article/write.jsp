@@ -5,7 +5,7 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<form class="table-box-type-1" method="POST" action="../article/doWrite">
+		<form class="table-box-type-1" method="POST" action="../article/doAdd">
 			<table class="table table-zebra w-full">
 				<colgroup>
 					<col width="200" />
