@@ -18,33 +18,44 @@ public class UsrReplyController {
 
 	@Autowired
 	private Rq rq;
-	
 
 	@RequestMapping("/usr/reply/doWriteReply") // 해당value url로 접속이 들어오면 매핑해줌(기본RequsetMethod.방식은 get방식)
 	@ResponseBody // 요청들어온거에 대해 응답결과를 Body에 넣어서 보내줌(RequestBoby는 요청하는 요청본문을 말함)
-	public String doWriteReply(String relTypeCode, int relId, String body,String replaceUri) {
+	public String doWriteReply(String relTypeCode, int relId, String body, String replaceUri) {
 
-		ResultData<Integer> replyRd = replyService.doWriteReply(rq.getLoginedMemberId(), relTypeCode, relId,body);//코드,메세지,데이터,네임 저장됨
+
+		ResultData<Integer> replyRd = replyService.doWriteReply(rq.getLoginedMemberId(), relTypeCode, relId, body);// 코드,메세지,데이터,네임
+																													// 저장됨
 
 		int id = replyRd.getData1();
-		
+
 		if (Ut.empty(replaceUri)) {
-			
+
 			switch (relTypeCode) {
-			case "article":
+			case "article": // 글의 댓글일경우가있고 댓글에 댓글일경우가있기때문에 경우의수를 나눠줌
 				replaceUri = Ut.f("../article/detail?id=%d", id);
 				break;
 
 			default:
 				break;
 			}
-			
+
 		}
-		
+
 		return rq.jsReplace(replyRd.getMsg(), replaceUri);
 
 	}
-
+	
+	@RequestMapping("usr/reply/doDelteReply")
+	public String doDelteReply(int replyid) {
+		
+		
+		replyService.doDelteReply(replyid);
+		
+		return rq.jsHistoryBackOnView(Ut.f("%d번 댓글이 삭제되었습니다.", replyid));
+		
+	}
+	
 
 
 }

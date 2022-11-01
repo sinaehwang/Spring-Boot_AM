@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.hsn.exam.demo.vo.Article;
+import com.hsn.exam.demo.vo.Reply;
 
 @Mapper
 public interface ArticleRepository {
@@ -156,6 +157,20 @@ public interface ArticleRepository {
 			</script>
 			""")
 	public void decreaseBadReaction(int actorId, int relId);
+
+	
+	@Select("""
+			<script>
+				SELECT reply.*,
+				`member`.name AS extra__writerName
+				FROM reply
+				INNER JOIN `member`
+				ON reply.memberId = `member`.id
+				WHERE reply.relId = #{relId}
+				ORDER BY reply.id DESC
+			</script>
+			""")
+	public List<Reply> getForPrintArticleReplyes(int relId);
 
 	
 	

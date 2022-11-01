@@ -310,6 +310,15 @@ CREATE TABLE reply (
 #해당게시판에서 댓글조회시 속도향상을위해 게시판번호컬럼을 인덱스로만들어줌
 ALTER TABLE reply ADD INDEX (relId);
 
+#댓글리스트가져오기
+SELECT reply.*,
+`member`.name AS extra__writerName
+FROM reply
+INNER JOIN `member`
+ON reply.memberId = `member`.id
+WHERE reply.relId = 2
+ORDER BY reply.id DESC
+			
 DESC reply
 SELECT * FROM reactionPoint
 SELECT * FROM article

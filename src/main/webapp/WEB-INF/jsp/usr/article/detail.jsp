@@ -148,19 +148,20 @@
      </form>
         <br />
      <!-- 댓글리스트시작 -->
-     <form class="" method="POST" action="../reply/list" >
         <h2 class="card-title w-full">댓글리스트</h2>
           <ul id = "comment--box" class="list-group">
+                <c:forEach var="reply" items="${replyes }">
                 <li id = "comment--1" class="list-group-item flex justify-between">
-                    <div>댓글내용1</div>
+                    <div>${reply.body}</div>
                     <div class = "flex content-center">
-                      <div>작성자:아무개 &nbsp; 작성일:2022</div>
+                      <div>작성자이름:${reply.extra__writerName} &nbsp; 작성일:${reply.regDate}</div>
                       <button class="btn badge-xs mx-3 mb-3"> 수정</button>
-                      <button class="btn badge-xs mb-3"> 삭제</button>
+                      <a class="btn badge-xs mb-3" href = "../reply/doDelteReply?replyid=${reply.id}" onclick = "if(confirm('정말 삭제하시겠습니까?') == false) return false;" > 삭제</a>
                    </div>
                 </li>
+                </c:forEach>  
           </ul>
-          </form>
+        
       </div>
     </div>
 

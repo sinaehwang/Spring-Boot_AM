@@ -1,5 +1,6 @@
 package com.hsn.exam.demo.repository;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -26,5 +27,12 @@ public interface ReplyRepository {
 			SELECT LAST_INSERT_ID()
 			""")
 	public int getLastInsertId();
+
+
+	@Delete("""
+			DELETE FROM reply
+			WHERE reply.id = #{replyid}
+			""")
+	public void doDelteReply(int replyid);
 
 }

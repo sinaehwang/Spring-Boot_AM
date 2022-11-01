@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.hsn.exam.demo.repository.ArticleRepository;
 import com.hsn.exam.demo.util.Ut;
 import com.hsn.exam.demo.vo.Article;
+import com.hsn.exam.demo.vo.Reply;
 import com.hsn.exam.demo.vo.ResultData;
 
 @Service
@@ -137,6 +138,11 @@ public class ArticleService {
 	public void decreaseBadReaction(int actorId, int relId) {
 
 		articleRepository.decreaseBadReaction(actorId,relId);
+	}
+
+	public List<Reply> getForPrintArticleReplyes(int relId) {
+		
+		return articleRepository.getForPrintArticleReplyes(relId);
 	}
 
 

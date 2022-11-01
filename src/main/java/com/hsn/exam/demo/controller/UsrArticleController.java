@@ -17,6 +17,7 @@ import com.hsn.exam.demo.service.ReactionPointService;
 import com.hsn.exam.demo.util.Ut;
 import com.hsn.exam.demo.vo.Article;
 import com.hsn.exam.demo.vo.Board;
+import com.hsn.exam.demo.vo.Reply;
 import com.hsn.exam.demo.vo.ResultData;
 import com.hsn.exam.demo.vo.Rq;
 
@@ -102,9 +103,13 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		model.addAttribute("article", article);
+		
+		//현재 해당글에 달린 모든 댓글리스트를 가져오는메소드
+		List<Reply>replyes = articleService.getForPrintArticleReplyes(article.getId());
+		
+		model.addAttribute("replyes", replyes);
 
-		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(),
-				"article", id);
+		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(),"article", id);
 
 		model.addAttribute("actorCanMakeReactionRd", actorCanMakeReactionRd);
 
@@ -123,10 +128,7 @@ public class UsrArticleController {
 				
 				model.addAttribute("actorCanCancelBadReaction", true);// 싫어요버튼을 먼저취소해야하는경우
 			}
-			
 		}
-		
-		
 
 		if (actorCanMakeReactionRd.getResultCode().equals("F-1")) {//추천버튼을 누를수없는경우의수(로그인을 하지 않은경우)
 
