@@ -140,10 +140,6 @@ public class ArticleService {
 		articleRepository.decreaseBadReaction(actorId,relId);
 	}
 
-	public List<Reply> getForPrintArticleReplyes(int relId) {
-		
-		return articleRepository.getForPrintArticleReplyes(relId);
-	}
 
 
 

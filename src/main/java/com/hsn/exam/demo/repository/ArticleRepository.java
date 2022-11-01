@@ -158,19 +158,6 @@ public interface ArticleRepository {
 			""")
 	public void decreaseBadReaction(int actorId, int relId);
 
-	
-	@Select("""
-			<script>
-				SELECT reply.*,
-				`member`.name AS extra__writerName
-				FROM reply
-				INNER JOIN `member`
-				ON reply.memberId = `member`.id
-				WHERE reply.relId = #{relId}
-				ORDER BY reply.id DESC
-			</script>
-			""")
-	public List<Reply> getForPrintArticleReplyes(int relId);
 
 	
 	

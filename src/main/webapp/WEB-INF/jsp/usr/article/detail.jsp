@@ -50,6 +50,7 @@
 	}
 
 </script>
+
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="table-box-type-1">
@@ -132,47 +133,66 @@
 				>삭제</a>
 			</c:if>
 		</div>
-    
-    <!-- 댓글작성시작 -->
-    
-    <div class="card w-full bg-base-100 shadow-xl">
-      <div class="card-body">
-      <form class="table-box-type-1" method="POST" action="../reply/doWriteReply" onsubmit="ReplyWrite__submitForm(this); return false;"> <!-- 중복전송,내용미입력체크스크립트 -->
-      <input type="hidden" name="relTypeCode" value="article" />
-      <input type="hidden" name="relId" value="${article.id }" />
-        <h2 class="card-title">댓글💬</h2>
-        <p><textarea class = "w-full input input-bordered" name = "body" placeholder="댓글을 입력해주세요" rows="1" ></textarea></p>
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary" type="submit" value="등록" >등록</button>
+<!-- 댓글작성시작 -->    
+        <div class="card w-full bg-base-100 shadow-xl mt-8 ">
+                <div class="card-body">
+                <form class="table-box-type-1" method="POST" action="../reply/doWriteReply" onsubmit="ReplyWrite__submitForm(this); return false;"> <!-- 중복전송,내용미입력체크스크립트 -->
+                <input type="hidden" name="relTypeCode" value="article" />
+                <input type="hidden" name="relId" value="${article.id }" />
+                  <h2 class="card-title">댓글💬</h2>
+                  <p><textarea class = "w-full input input-bordered" name = "body" placeholder="댓글을 입력해주세요" rows="1" ></textarea></p>
+                  <div class="card-actions justify-end">
+                    <button class="btn btn-primary" type="submit" value="등록" >등록</button>
+                  </div>
+               </form>
+               </div>
+<!-- 댓글리스트시작 -->
+              <div class="container mx-auto px-3">
+                <h2>댓글 리스트(${repliesCount })</h2>
+                <table class="table table-fixed w-full">
+                  <colgroup>
+                    <col width="30" />
+                    <col width="100" />
+                    <col width="100" />
+                    <col width="30" />
+                    <col width="140" />
+                    <col width="30" />
+                    <col width="30" />
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th>번호</th>
+                      <th>날짜</th>
+                      <th>작성자</th>
+                      <th>추천</th>
+                      <th>내용</th>
+                      <th>수정</th>
+                      <th>삭제</th>
+                    </tr>
+                  </thead>
+            
+                  <tbody>
+                    <c:forEach var="reply" items="${replies }">
+                      <tr class="hover">
+                        <td>${reply.id}</td>
+                        <td>${reply.regDate}</td>
+                        <td>${reply.extra__writerName}</td>
+                        <td>${reply.goodReactionPoint}</td>
+                        <td class="text-left">${reply.getForPrintBody()}</td>
+                        <td><a href="#" class="btn btn-xs">수정</a></td>
+                        <td><a href="../reply/doDelete?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" class="btn btn-xs">삭제</a></td>
+                      </tr>
+                    </c:forEach>
+                  </tbody>
+            
+                </table>
+            
+              </div>
+<!-- 댓글리스트끝 -->               
         </div>
-     </form>
-        <br />
-     <!-- 댓글리스트시작 -->
-        <h2 class="card-title w-full">댓글리스트</h2>
-          <ul id = "comment--box" class="list-group">
-                <c:forEach var="reply" items="${replyes }">
-                <li id = "comment--1" class="list-group-item flex justify-between">
-                    <div>${reply.body}</div>
-                    <div class = "flex content-center">
-                      <div>작성자이름:${reply.extra__writerName} &nbsp; 작성일:${reply.regDate}</div>
-                      <button class="btn badge-xs mx-3 mb-3"> 수정</button>
-                      <a class="btn badge-xs mb-3" href = "../reply/doDelteReply?replyid=${reply.id}" onclick = "if(confirm('정말 삭제하시겠습니까?') == false) return false;" > 삭제</a>
-                   </div>
-                </li>
-                </c:forEach>  
-          </ul>
-        
-      </div>
+<!-- 댓글작성끝 -->     
     </div>
-
-    
-
-    
-    
-    
-    
-    <!-- 댓글구현끝 --> 
-	</div>
 </section>
-<!-- <iframe src="http://localhost:8081/usr/article/doIncreaseHitCountRd?id=1" frameborder="0"></iframe> -->
+
+
 <%@ include file="../common/foot.jspf"%>

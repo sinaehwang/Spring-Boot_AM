@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hsn.exam.demo.service.ArticleService;
 import com.hsn.exam.demo.service.BoardService;
 import com.hsn.exam.demo.service.ReactionPointService;
+import com.hsn.exam.demo.service.ReplyService;
 import com.hsn.exam.demo.util.Ut;
 import com.hsn.exam.demo.vo.Article;
 import com.hsn.exam.demo.vo.Board;
@@ -33,6 +34,8 @@ public class UsrArticleController {
 	private Rq rq;
 	@Autowired
 	private ReactionPointService reactionPointService;
+	@Autowired
+	private ReplyService replyService;
 
 	// 액션메서드
 	@RequestMapping("/usr/article/doAdd")
@@ -105,15 +108,19 @@ public class UsrArticleController {
 		model.addAttribute("article", article);
 		
 		//현재 해당글에 달린 모든 댓글리스트를 가져오는메소드
-		List<Reply>replyes = articleService.getForPrintArticleReplyes(article.getId());
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMemberId(), "article", id);
 		
-		model.addAttribute("replyes", replyes);
+		int repliesCount = replies.size();
 
 		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(),"article", id);
 
 		model.addAttribute("actorCanMakeReactionRd", actorCanMakeReactionRd);
 
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReactionRd.isSuccess());// 성공의경우의수,처음으로 추천수버튼을 클릭하는경우
+		
+		model.addAttribute("repliesCount", repliesCount);
+		
+		model.addAttribute("replies", replies);
 
 		if (actorCanMakeReactionRd.getResultCode().equals("F-2")) {// 기존추천버튼을 취소먼저해야하는경우의수
 

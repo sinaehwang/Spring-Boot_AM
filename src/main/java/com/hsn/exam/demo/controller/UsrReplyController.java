@@ -1,5 +1,7 @@
 package com.hsn.exam.demo.controller;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hsn.exam.demo.service.ReplyService;
 import com.hsn.exam.demo.util.Ut;
+import com.hsn.exam.demo.vo.Reply;
 import com.hsn.exam.demo.vo.ResultData;
 import com.hsn.exam.demo.vo.Rq;
 
@@ -33,7 +36,7 @@ public class UsrReplyController {
 
 			switch (relTypeCode) {
 			case "article": // 글의 댓글일경우가있고 댓글에 댓글일경우가있기때문에 경우의수를 나눠줌
-				replaceUri = Ut.f("../article/detail?id=%d", id);
+				replaceUri = Ut.f("../article/detail?id=%d", relId);
 				break;
 
 			default:
@@ -46,13 +49,29 @@ public class UsrReplyController {
 
 	}
 	
-	@RequestMapping("usr/reply/doDelteReply")
-	public String doDelteReply(int replyid) {
+	@RequestMapping("usr/reply/doDelete")
+	@ResponseBody
+	public String doDelteReply(int id, String replaceUri) {
 		
+		//댓글작성자와 로그인사용자가 일치하는지 체크필요
+		//댓글id로 댓글을 먼저가져오고 가져온댓글로  사용자일치여부체크후 성공/실패의결과메세지로 구분
 		
-		replyService.doDelteReply(replyid);
+		Reply reply = replyService.getForPrintReply(id,rq.getLoginedMemberId());
 		
-		return rq.jsHistoryBackOnView(Ut.f("%d번 댓글이 삭제되었습니다.", replyid));
+		if(reply==null) {
+			
+			return rq.jsHistoryBack("일치하는 댓글이 없습니다.");
+		}
+		
+		ResultData actorCanReplyDeleteRd = replyService.actorCanReplyDelete(rq.getLoginedMemberId(), reply);
+		
+		if(actorCanReplyDeleteRd.isFail()) {
+			return rq.jsHistoryBack(actorCanReplyDeleteRd.getMsg());
+		}
+		
+		replyService.doDelteReply(id);
+		
+		return rq.jsReplace(Ut.f("%d번 댓글을 삭제했습니다.", id) , replaceUri);
 		
 	}
 	
