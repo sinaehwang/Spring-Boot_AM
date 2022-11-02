@@ -1,9 +1,8 @@
 package com.hsn.exam.demo.controller;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -72,6 +71,27 @@ public class UsrReplyController {
 		replyService.doDelteReply(id);
 		
 		return rq.jsReplace(Ut.f("%d번 댓글을 삭제했습니다.", id) , replaceUri);
+		
+	}
+	
+	@RequestMapping("/usr/reply/modify")
+	public String modify(int id,Model model) {
+		
+		Reply reply = replyService.getForPrintReply(id, rq.getLoginedMemberId());
+		
+		if(reply==null) {
+			return rq.jsHistoryBackOnView("일치하는 댓글이 없습니다.");
+		}
+		
+		ResultData actorCanReplyUpdateRd = replyService.actorCanReplyUpdate(rq.getLoginedMemberId(), reply);
+		
+		if(actorCanReplyUpdateRd.isFail()) {
+			return rq.jsHistoryBackOnView(actorCanReplyUpdateRd.getMsg());
+		}
+		
+		model.addAttribute(reply);
+		
+		return "usr/reply/modify";
 		
 	}
 	

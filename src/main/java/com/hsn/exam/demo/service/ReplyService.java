@@ -91,6 +91,16 @@ public class ReplyService {
 		return ResultData.from("S-1",Ut.f("%d번 댓글 삭제완료", reply.getId()));
 		
 	}
+	
+	public ResultData actorCanReplyUpdate(int actorId, Reply reply) {
+		
+		if (reply.getMemberId() != actorId) {
+
+			return ResultData.from("F-2", "해당 댓글에 대한 수정권한이 없습니다.");
+		}
+		return ResultData.from("S-1", "수정가능");
+	}
+	
 
 	public ResultData actorCanReplyDelete(int actorId, Reply reply) {
 		
