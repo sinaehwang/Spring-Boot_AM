@@ -48,7 +48,7 @@ public class UsrReplyController {
 
 	}
 	
-	@RequestMapping("usr/reply/doDelete")
+	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
 	public String doDelteReply(int id, String replaceUri) {
 		
@@ -95,7 +95,7 @@ public class UsrReplyController {
 		
 	}
 	
-	@RequestMapping("usr/reply/doModify")
+	@RequestMapping("/usr/reply/doModify")
 	@ResponseBody
 	public String doModify(int id, int relId,String body,String relTypeCode,String replaceUri) {
 		
