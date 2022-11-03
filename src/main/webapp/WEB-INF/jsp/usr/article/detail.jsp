@@ -172,9 +172,9 @@
                   </thead>
             
                   <tbody>
-                    <c:forEach var="reply" items="${replies }">
+                    <c:forEach var="reply" items="${replies }" varStatus="status"> <!--게시판별로 댓글번호를 1부터 정의해서 사용하기  -->
                       <tr class="hover">
-                        <td>${reply.id}</td>
+                        <td>${status.count}</td>
                         <td>${reply.regDate}</td>
                         <td>${reply.extra__writerName}</td>
                         <td>${reply.goodReactionPoint}</td>

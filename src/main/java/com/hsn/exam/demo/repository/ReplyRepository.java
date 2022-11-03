@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.hsn.exam.demo.vo.Reply;
 
@@ -71,5 +72,19 @@ public interface ReplyRepository {
 			""")
 	
 	public Reply getForPrintReply(int id, int actorId);
+
+
+	@Update("""
+			<script>
+				UPDATE reply 
+				SET `body`= #{body},
+				updateDate = NOW()
+				WHERE relTypeCode = #{relTypeCode}
+				AND id= #{id}
+				
+
+			</script>
+			""")
+	public void doModifyReply(int id, String body, String relTypeCode);
 
 }

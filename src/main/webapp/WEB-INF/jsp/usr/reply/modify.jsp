@@ -3,51 +3,69 @@
 <c:set var="pageTitle" value="REPLY MODIFY" />
 <%@ include file="../common/head.jspf"%>
 
+<script>
+  
+  let ReplyModify__submitFormDone = false; //중복전송방지위해 false로 변수 선언
+  function ReplyModify__submitForm(form) {
+    
+    if(ReplyModify__submitFormDone){//중복전송이 true로 바껴있다면 아무것도 리턴하지않아 중복발송을 막아줌
+      return;
+    }
+    
+    form.body.value = form.body.value.trim();
+    
+    if(form.body.value.length==0) {
+      alert('댓글내용을 입력해주세요');
+      form.body.focus();//하이라이팅효과
+      return;
+    }
+    
+    ReplyModify__submitFormDone =true;
+    form.submit(); //폼전송실행
+  }
+
+</script>
+
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<form class="table-box-type-1" method="POST" action="../reply/doModify">
-			<input type="hidden" name="id" value="${article.id }" />
+		<form class="table-box-type-1" method="POST" action="../reply/doModify" onsubmit ="ReplyModify__submitForm(this); return false;">
+            <input type="hidden" name="id" value="${reply.id }" />
+            <input type="hidden" name="relTypeCode" value="${reply.relTypeCode }" />
+            <input type="hidden" name=relId value="${reply.relId }" />
 			<table class="table table-zebra w-full">
 				<colgroup>
 					<col width="200" />
 				</colgroup>
 
 				<tbody>
+                    <tr>
+                        <th>게시판번호</th>
+                        <td><div class="badge">${reply.relId }</div></td>
+                    </tr>
+        
 					<tr>
-						<th>번호</th>
-						<td><div class="badge">${article.id }</div></td>
+						<th>댓글번호</th>
+						<td><div class="badge">${reply.id }</div></td>
 					</tr>
 					<tr>
 						<th>작성날짜</th>
-						<td>${article.regDate }</td>
+						<td>${reply.regDate }</td>
 					</tr>
 					<tr>
 						<th>수정날짜</th>
-						<td>${article.updateDate }</td>
+						<td>${reply.updateDate }</td>
 					</tr>
-                    <tr>
-                        <th>조회수</th>
-                        <td>
-                           <span class="badge article-detail__hit-count">${article.hitCount }</span>
-                        </td>
-                    </tr>
 					<tr>
 						<th>작성자</th>
-						<td>${article.extra__writerName }</td>
+						<td>${reply.extra__writerName }</td>
 					</tr>
                     <tr>
                           <th>추천수</th>
-                          <td>${article.goodReactionPoint }</td> 
+                          <td>${reply.goodReactionPoint }</td> 
                     </tr>
 					<tr>
-						<th>제목</th>
-						<td><input class="w-full input input-bordered  max-w-xs" type="text" name="title" placeholder="제목을 입력해주세요"
-							value="${article.title }"
-						/></td>
-					</tr>
-					<tr>
 						<th>내용</th>
-						<td><textarea class="textarea textarea-bordered w-full" type="text" name="body" placeholder="내용을 입력해주세요" />${article.body }</textarea></td>
+						<td><textarea class="textarea textarea-bordered w-full" type="text" name="body" placeholder="내용을 입력해주세요" />${reply.body }</textarea></td>
 					</tr>
 					<tr>
 						<th></th>
@@ -61,14 +79,7 @@
 
 		<div class="btns">
 			<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
-			<c:if test="${article.extra__actorCanModify }">
-				<a class="btn-text-link btn btn-active btn-ghost" href="../article/modify?id=${article.id }">수정</a>
-			</c:if>
-			<c:if test="${article.extra__actorCanDelete }">
-				<a class="btn-text-link btn btn-active btn-ghost" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
-					href="../article/doDelete?id=${article.id }"
-				>삭제</a>
-			</c:if>
+
 		</div>
 	</div>
 </section>

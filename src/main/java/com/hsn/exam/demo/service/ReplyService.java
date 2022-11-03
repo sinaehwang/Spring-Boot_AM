@@ -111,4 +111,10 @@ public class ReplyService {
 		return ResultData.from("S-1", "삭제가능");
 	}
 
+	public void doModifyReply(int id,String body, String relTypeCode) {
+		
+		replyRepository.doModifyReply(id,body,relTypeCode);
+		
+	}
+
 }

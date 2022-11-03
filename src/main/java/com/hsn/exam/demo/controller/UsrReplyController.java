@@ -95,6 +95,42 @@ public class UsrReplyController {
 		
 	}
 	
+	@RequestMapping("usr/reply/doModify")
+	@ResponseBody
+	public String doModify(int id, int relId,String body,String relTypeCode,String replaceUri) {
+		
+		Reply reply = replyService.getForPrintReply(id,rq.getLoginedMemberId());
+		
+		if(reply==null) {
+			
+			return rq.jsHistoryBack("일치하는 댓글이 없습니다.");
+		}
+		
+		ResultData actorCanReplyModifyRd = replyService.actorCanReplyUpdate(rq.getLoginedMemberId(), reply);
+		
+		if(actorCanReplyModifyRd.isFail()) {
+			return rq.jsHistoryBack(actorCanReplyModifyRd.getMsg());
+		}
+		
+		replyService.doModifyReply(id,body,relTypeCode);
+		
+		if (Ut.empty(replaceUri)) {
+
+			switch (relTypeCode) {
+			case "article": // 글의 댓글일경우가있고 댓글에 댓글일경우가있기때문에 경우의수를 나눠줌
+				replaceUri = Ut.f("../article/detail?id=%d", relId);
+				break;
+
+			default:
+				break;
+			}
+
+		}
+		
+		return rq.jsReplace(Ut.f("%d번 댓글을 수정했습니다.", id) , replaceUri);
+		
+	}
+	
 
 
 }
