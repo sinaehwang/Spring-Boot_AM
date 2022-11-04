@@ -50,9 +50,8 @@
 						<td><textarea class="textarea textarea-bordered w-full" type="text" name="body" placeholder="내용을 입력해주세요" />${article.body }</textarea></td>
 					</tr>
 					<tr>
-						<th></th>
-						<td><button class="btn btn-active btn-ghost" type="submit" value="수정" />수정
-							</button></td>
+						<th>수정하기</th>
+						<td><button class="btn btn-active btn-ghost" type="submit" value="수정" />수정</button></td>
 					</tr>
 				</tbody>
 

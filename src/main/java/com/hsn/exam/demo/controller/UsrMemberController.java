@@ -145,7 +145,6 @@ public class UsrMemberController {
 	
 	
 	@RequestMapping("usr/member/doCheckPassword")
-	@ResponseBody
 	public String doCheckPassword(String loginPw,String replaceUri) {
 
 
@@ -158,6 +157,15 @@ public class UsrMemberController {
 		}
 		
 		return "usr/member/modify";
+	}
+	
+	
+	@RequestMapping("usr/member/doModify")
+	@ResponseBody
+	public String doModify() {
+
+
+		return "성공";
 	}
 	
 	
