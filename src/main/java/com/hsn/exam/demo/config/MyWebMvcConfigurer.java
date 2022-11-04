@@ -23,6 +23,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	NeedLogoutInterceptor needLogoutInterceptor ;
 	
 	//인터셉터 적용부분
+	@Override
     public void addInterceptors(InterceptorRegistry registry) {
     	
     	InterceptorRegistration ir;
@@ -45,6 +46,9 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
     			ir.addPathPatterns("/usr/member/doLogout");
     			ir.addPathPatterns("/usr/member/Mypage");
     			ir.addPathPatterns("/usr/member/modify");
+    			ir.addPathPatterns("/usr/member/doModify");
+    			ir.addPathPatterns("/usr/member/checkPassword");
+    			ir.addPathPatterns("/usr/member/doCheckPassword");
     			ir.addPathPatterns("/usr/reactionPoint/doGoodReaction");
     			ir.addPathPatterns("/usr/reactionPoint/doBadReaction");
     			ir.addPathPatterns("/usr/reply/doWriteReply");

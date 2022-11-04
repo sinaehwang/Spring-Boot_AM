@@ -29,7 +29,7 @@ public class UsrMemberController {
 	}
 	
 
-	@RequestMapping("usr/member/doJoin")
+	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public ResultData doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,String email) {
 
@@ -66,14 +66,9 @@ public class UsrMemberController {
 		return ResultData.newData(joinRd,"Member" ,member);
 	}
 	
-	@RequestMapping("usr/member/doLogin")
+	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public String doLogin(HttpServletRequest req,String loginId, String loginPw) {
-		
-		
-		if(rq.isLogined()) {
-			return Ut.jsHistoryBack("이미 로그인상태입니다.");
-		}
 		
 		if (Ut.empty(loginId)) {
 			//return ResultData.from("F-1", "아이디를 입력해주세요");
@@ -103,14 +98,14 @@ public class UsrMemberController {
 		
 	}
 	
-	@RequestMapping("usr/member/Login")
+	@RequestMapping("/usr/member/Login")
 	public String login(HttpSession httpSession) {
 		
 		return "usr/member/login";
 	}
 	
 	
-	@RequestMapping("usr/member/doLogout")
+	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
 	public String doLogout(HttpServletRequest req) {
 		
@@ -125,7 +120,7 @@ public class UsrMemberController {
 		return Ut.jsReplace("로그아웃되었습니다.", "/");
 	}
 	
-	@RequestMapping("usr/member/Mypage")
+	@RequestMapping("/usr/member/Mypage")
 	public String Mypage(Model model) {
 		
 		Member member = rq.getLoginedMember();
@@ -136,7 +131,7 @@ public class UsrMemberController {
 		return "usr/member/mypage";
 	}
 	
-	@RequestMapping("usr/member/checkPassword")
+	@RequestMapping("/usr/member/checkPassword")
 	public String checkPassword() {
 
 		return "usr/member/checkPassword";
@@ -144,7 +139,7 @@ public class UsrMemberController {
 	}
 	
 	
-	@RequestMapping("usr/member/doCheckPassword")
+	@RequestMapping("/usr/member/doCheckPassword")
 	@ResponseBody
 	public String doCheckPassword(String loginPw,String replaceUri) {
 
@@ -160,20 +155,36 @@ public class UsrMemberController {
 		return rq.jsReplace("", replaceUri);
 	}
 	
-	@RequestMapping("usr/member/modify")
+	@RequestMapping("/usr/member/modify")
 	public String modify() {
 
 		return "usr/member/modify";
 	}
 	
 	
-	@RequestMapping("usr/member/doModify")
+	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
-	public String doModify(String loginId,String loginPw,String name,String nickname,String cellphoneNum,String email,String replaceUri) {
+	public String doModify(String loginPw,String name,String nickname,String cellphoneNum,String email) {
 		
-		ResultData member = memberService.doModify(rq.getLoginedMemberId(),loginId,loginPw,name,nickname,cellphoneNum,email);
+		if (Ut.empty(loginPw)) {
+			loginPw = null;
+		}
+		if (Ut.empty(name)) {
+			return rq.jsHistoryBack("이름을 입력해주세요");
+		}
+		if (Ut.empty(nickname)) {
+			return rq.jsHistoryBack("닉네임을 입력해주세요");
+		}
+		if (Ut.empty(cellphoneNum)) {
+			return rq.jsHistoryBack("전화번호를 입력해주세요");
+		}
+		if (Ut.empty(email)) {
+			return rq.jsHistoryBack("이메일을 입력해주세요");
+		}
+		
+		ResultData modifyRd  = memberService.doModify(rq.getLoginedMemberId(),loginPw,name,nickname,cellphoneNum,email);
 
-		return rq.jsReplace(member.getMsg(),replaceUri);
+		return rq.jsReplace(modifyRd .getMsg(),"/");
 	}
 	
 	

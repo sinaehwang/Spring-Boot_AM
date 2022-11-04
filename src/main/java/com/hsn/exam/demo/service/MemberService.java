@@ -52,10 +52,10 @@ public class MemberService {
 		return memberRepository.getMemberById(id);
 	}
 
-	public ResultData doModify(int actorId,String loginId, String loginPw, String name, String nickname, String cellphoneNum,String email) {
+	public ResultData doModify(int actorId,String loginPw, String name, String nickname, String cellphoneNum,String email) {
 		
-		 memberRepository.doModify(actorId,loginId,loginPw,name,nickname,cellphoneNum,email);
+		 memberRepository.doModify(actorId,loginPw,name,nickname,cellphoneNum,email);
 		 
-		 return ResultData.from("S-2", "회원정보수정완료");
+		 return ResultData.from("S-1", "회원정보수정완료");
 	}
 }

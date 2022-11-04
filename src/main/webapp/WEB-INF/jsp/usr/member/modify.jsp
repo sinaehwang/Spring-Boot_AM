@@ -13,13 +13,6 @@
 	    return ;
 	  }
 	  
-  	  form.loginId.value = form.loginId.value.trim();
-
-  	  if(form.loginId.value.length == 0) {
-  	    alert('아이디를 입력해주세요');
-  	    return ;
-  	  }
-
   	  form.loginPw.value = form.loginPw.value.trim();
   	  
   	  if(form.loginPw.value.length==0) {
@@ -88,8 +81,8 @@
   		<tr>
   			<th>아이디</th>
   			<td>
-                <input class = "w-96 input input-bordered" name = "loginId" type = "text" placeholder="변경할 아이디를 입력해주세요">
-                <a href="" class = "btn btn-xs">중복체크</a>
+                  ${rq.loginedMember.loginId }
+                
             </td>
   		</tr>
         <tr>
@@ -107,26 +100,26 @@
           <tr>
               <th>이름</th>
               <td>
-                  <input class = "w-96 input input-bordered" name = "name" type = "text" placeholder="변경할 이름을 입력해주세요">
+                  <input value="${rq.loginedMember.name }" class = "w-96 input input-bordered" name = "name" type = "text" placeholder="변경할 이름을 입력해주세요">
               </td>
           </tr>
           
           <tr>
               <th>닉네임</th>
               <td>
-                <input class = "w-96 input input-bordered" name = "nickname" type = "text" placeholder="변경할 닉네임을 입력해주세요">
+                <input value="${rq.loginedMember.nickname }"class = "w-96 input input-bordered" name = "nickname" type = "text" placeholder="변경할 닉네임을 입력해주세요">
               </td>
           </tr>
           <tr>
               <th>연락처</th>
               <td>
-                <input class = "w-96 input input-bordered" name = "cellphoneNum" type = "text" placeholder="변경할 연락처를 입력해주세요">
+                <input value="${rq.loginedMember.cellphoneNum }" class = "w-96 input input-bordered" name = "cellphoneNum" type = "text" placeholder="변경할 연락처를 입력해주세요">
               </td>
           </tr>
           <tr>
               <th>e-mail</th>
               <td>
-                <input class = "w-96 input input-bordered" name = "email" type = "text" placeholder="변경할 이메일을 입력해주세요">
+                <input value="${rq.loginedMember.email }" class = "w-96 input input-bordered" name = "email" type = "text" placeholder="변경할 이메일을 입력해주세요">
               </td>
           </tr>
 

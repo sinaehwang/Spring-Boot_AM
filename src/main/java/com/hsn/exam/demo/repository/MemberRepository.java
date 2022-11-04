@@ -51,20 +51,29 @@ public interface MemberRepository {
 
 	
 	@Update("""
+			<script>
 			UPDATE `member`
-			SET 
-			regDate = NOW(),
-			updateDate = NOW(),
-			loginId = #{loginId},
-			loginPw = #{loginPw},
-			`name` = #{name},
-			nickname = #{name},
-			cellphoneNum = #{cellphoneNum},
-			email = #{email}
-			WHERE id = #{actorId}
-			)
-			
-			""")
-	Member doModify(int actorId,String loginId, String loginPw, String name, String nickname, String cellphoneNum,String email);
+			<set>
+				updateDate = NOW(),
+				<if test="loginPw != null">
+					loginPw = #{loginPw},
+				</if>
+				<if test="name != null">
+					name = #{name},
+				</if>
+				<if test="nickname != null">
+					nickname = #{nickname},
+				</if>
+				<if test="cellphoneNum != null">
+					cellphoneNum = #{cellphoneNum},
+				</if>
+				<if test="email != null">
+					email = #{email}
+				</if>
+			</set>
+			WHERE id = #{actorId};
+			</script>
+				""")
+	void doModify(int actorId, String loginPw, String name, String nickname, String cellphoneNum,String email);
 
 }
