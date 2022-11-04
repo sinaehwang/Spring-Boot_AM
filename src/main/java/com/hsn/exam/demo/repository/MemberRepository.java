@@ -3,6 +3,7 @@ package com.hsn.exam.demo.repository;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.hsn.exam.demo.vo.Member;
 
@@ -47,5 +48,23 @@ public interface MemberRepository {
 			AND M.email = #{email}
 				""")
 	Member getMemberByNameAndEmail(String name, String email);
+
+	
+	@Update("""
+			UPDATE `member`
+			SET 
+			regDate = NOW(),
+			updateDate = NOW(),
+			loginId = #{loginId},
+			loginPw = #{loginPw},
+			`name` = #{name},
+			nickname = #{name},
+			cellphoneNum = #{cellphoneNum},
+			email = #{email}
+			WHERE id = #{actorId}
+			)
+			
+			""")
+	Member doModify(int actorId,String loginId, String loginPw, String name, String nickname, String cellphoneNum,String email);
 
 }

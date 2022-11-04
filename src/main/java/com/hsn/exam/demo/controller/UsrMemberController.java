@@ -145,6 +145,7 @@ public class UsrMemberController {
 	
 	
 	@RequestMapping("usr/member/doCheckPassword")
+	@ResponseBody
 	public String doCheckPassword(String loginPw,String replaceUri) {
 
 
@@ -156,16 +157,23 @@ public class UsrMemberController {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
+		return rq.jsReplace("", replaceUri);
+	}
+	
+	@RequestMapping("usr/member/modify")
+	public String modify() {
+
 		return "usr/member/modify";
 	}
 	
 	
 	@RequestMapping("usr/member/doModify")
 	@ResponseBody
-	public String doModify() {
+	public String doModify(String loginId,String loginPw,String name,String nickname,String cellphoneNum,String email,String replaceUri) {
+		
+		ResultData member = memberService.doModify(rq.getLoginedMemberId(),loginId,loginPw,name,nickname,cellphoneNum,email);
 
-
-		return "성공";
+		return rq.jsReplace(member.getMsg(),replaceUri);
 	}
 	
 	
