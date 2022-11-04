@@ -11,9 +11,11 @@ import com.hsn.exam.demo.vo.ResultData;
 public class MemberService {
 	
 	private MemberRepository memberRepository;
+	private AttrService attrService; //AttrService 클래스추가
 
-	public MemberService(MemberRepository memberRepository) {
+	public MemberService(AttrService attrService,MemberRepository memberRepository) {
 		this.memberRepository = memberRepository;
+		this.attrService = attrService;
 	}
 
 	public ResultData<Integer> join(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
@@ -57,5 +59,14 @@ public class MemberService {
 		 memberRepository.doModify(actorId,loginPw,name,nickname,cellphoneNum,email);
 		 
 		 return ResultData.from("S-1", "회원정보수정완료");
+	}
+
+	public String genMemberModifyAuthKey(int actorId) {
+		
+		String memberModifyAuthKey = Ut.getTempPassword(10); //인증키갯수지정해서 만들기
+
+		attrService.setValue("member", actorId, "extra", "memberModifyAuthKey", memberModifyAuthKey, Ut.getDateStrLater(60 * 5)); //4개의변수,값,유효기간
+
+		return memberModifyAuthKey;
 	}
 }

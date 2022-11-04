@@ -75,5 +75,7 @@ public interface MemberRepository {
 			</script>
 				""")
 	void doModify(int actorId, String loginPw, String name, String nickname, String cellphoneNum,String email);
+	
+	
 
 }

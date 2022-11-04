@@ -152,6 +152,13 @@ public class UsrMemberController {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
+		if(replaceUri.equals("../member/modify")) {
+			String memberModifyAuthKey = memberService.genMemberModifyAuthKey(rq.getLoginedMemberId()); //비밀번호확인완료되면 인증코드생성
+			
+			replaceUri += "?memberModifyAuthKey="+memberModifyAuthKey; //인증키가 더해진 replaceUri가됨
+			
+		}
+		
 		return rq.jsReplace("", replaceUri);
 	}
 	
