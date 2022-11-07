@@ -69,4 +69,16 @@ public class MemberService {
 
 		return memberModifyAuthKey;
 	}
+
+	public ResultData CheckmemberModifyAuthKey(int actorId, String memberModifyAuthKey) {
+
+		String CheckmemberModifyAuthKey = attrService.getValue("member", actorId, "extra", "memberModifyAuthKey");//해당변수  actorId에 맞는 값을 리턴해준다.
+		
+		if(memberModifyAuthKey.equals(CheckmemberModifyAuthKey)==false) {
+			
+			return ResultData.from("F-1", "인증번호코드 불일치 또는 만료된 인증번호코드입니다.");
+		}
+		
+		 return ResultData.from("S-1", "인증번호코드 일치 확인완료");
+	}
 }

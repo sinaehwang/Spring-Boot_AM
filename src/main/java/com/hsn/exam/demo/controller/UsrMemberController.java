@@ -163,15 +163,39 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/modify")
-	public String modify() {
+	public String modify(String memberModifyAuthKey) {
+		
+		if(Ut.empty(memberModifyAuthKey)) { //인증번호 코드없이 주소가 들어올경우를 막기위해서
+			return rq.jsHistoryBackOnView("인증번호 코드가 필요합니다");
+		}
+		//입력한 인증번호 코드와 부여한 인증번호 코드가 일치하는지 체크
+		
+		ResultData CheckmemberModifyAuthKeyrd = memberService.CheckmemberModifyAuthKey(rq.getLoginedMemberId(),memberModifyAuthKey);
+		
+		if(CheckmemberModifyAuthKeyrd.isFail()) {
+			
+			return rq.jsHistoryBackOnView(CheckmemberModifyAuthKeyrd.getMsg());
+		}
 
 		return "usr/member/modify";
 	}
 	
 	
-	@RequestMapping("/usr/member/doModify")
-	@ResponseBody
-	public String doModify(String loginPw,String name,String nickname,String cellphoneNum,String email) {
+	@RequestMapping("/usr/member/doModify") //doModify주소로 바로 접근하는 경우도 막아야함
+	@ResponseBody //modify에서 보내는 인증코드랑 doModify에서 받는 코드가 동일한지 확인해야 doModify로 접근하는 경우를 막을수 있음
+	public String doModify(String loginPw,String name,String nickname,String cellphoneNum,String email,String memberModifyAuthKey) {
+		
+		if(Ut.empty(memberModifyAuthKey)) {
+			return rq.jsHistoryBackOnView("인증번호 코드가 필요합니다");
+		}
+		
+		ResultData CheckmemberModifyAuthKeyrd = memberService.CheckmemberModifyAuthKey(rq.getLoginedMemberId(),memberModifyAuthKey);
+		
+		if(CheckmemberModifyAuthKeyrd.isFail()) {
+			
+			return rq.jsHistoryBack(CheckmemberModifyAuthKeyrd.getMsg());
+		}
+		
 		
 		if (Ut.empty(loginPw)) {
 			loginPw = null;
