@@ -13,12 +13,18 @@ import com.hsn.exam.demo.vo.Rq;
 public class BeforeActionIntercepter implements HandlerInterceptor {
 	@Autowired
 	private Rq rq;
+	
+	public BeforeActionIntercepter(Rq rq) {
+		this.rq = rq;
+	}
 
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
 		
 		
-		rq.initOnBeforeActionInterceptor();
+		//rq.initOnBeforeActionInterceptor(); 무조건 처음부터 rq 객체를 생성하는방싱
+		
+		req.setAttribute("rq", rq);//req가 호출될때 rq 대리자를 생성
 		
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}
