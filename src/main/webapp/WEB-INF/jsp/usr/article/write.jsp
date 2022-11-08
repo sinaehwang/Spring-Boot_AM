@@ -2,11 +2,52 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="ARTICLE WRITE" />
 <%@ include file="../common/head.jspf"%>
+<%@ include file="../common/toastUIEditorLib.jspf"%>
+
+
+<script>
+
+let submitWriteFormDone = false;
+
+function submitWriteForm(form) {
+  
+  if(submitWriteFormDone) {
+    alert('처리중입니다.');
+    return;
+  }
+  
+  form.title.value = form.title.value.trim();
+  
+  if(form.title.value.length ==0) {
+    alert('제목을 입력해주세요');
+    form.title.focus();
+    
+    return;
+  }
+  
+  const editor = $(form).find('.toast-ui-editor').data('data-toast-editor');
+  
+  const markdown = editor.getMarkdown().trim();
+  
+  if(markdown.length ==0) {
+    alert('내용을 입력해주세요');
+    editor.focus();
+  }
+  
+  form.body.value = markdown;
+  
+  form.submit();
+  
+  submitWriteFormDone=true;
+}
+  
+</script>
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<form class="table-box-type-1" method="POST" action="../article/doAdd">
-			<table class="table table-zebra w-full">
+		<form  onsubmit="submitWriteForm(this); return false;" class="table-box-type-1" method="POST" action="../article/doAdd">
+          <input type="hidden" name="body"/></input>
+			<table>
 				<colgroup>
 					<col width="200" />
 				</colgroup>
@@ -37,15 +78,15 @@
 					<tr>
 						<th>내용</th>
 						<td>
-							<textarea required="required" class="textarea textarea-bordered w-full" type="text" name="body"
-								placeholder="내용을 입력해주세요"
-							/></textarea>
+							<div class="toast-ui-editor">
+                                <script type="text/x-template"></script>
+                            </div>
 						</td>
 					</tr>
 					<tr>
 						<th></th>
 						<td>
-							<button class="btn btn-active btn-ghost" type="submit" value="작성" />
+							<button class="btn btn-active btn-ghost" type="submit" value="작성" >
 							작성
 							</button>
 						</td>
@@ -55,7 +96,7 @@
 			</table>
 		</form>
 
-		<div class="btns">
+		<div class="btns mt-3">
 			<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
 			<c:if test="${article.extra__actorCanModify }">
 				<a class="btn-text-link btn btn-active btn-ghost" href="../article/modify?id=${article.id }">수정</a>

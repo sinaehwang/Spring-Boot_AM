@@ -22,7 +22,7 @@ public class BeforeActionIntercepter implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
 		
 		
-		//rq.initOnBeforeActionInterceptor(); 무조건 처음부터 rq 객체를 생성하는방싱
+		//rq.initOnBeforeActionInterceptor(); beforeAction을 거치는 모든 메소드마다 무조건 처음부터 rq 객체를 생성해서 가지게됨
 		
 		req.setAttribute("rq", rq);//req가 호출될때 rq 대리자를 생성
 		

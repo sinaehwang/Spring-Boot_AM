@@ -17,8 +17,8 @@ import lombok.Getter;
 
 
 @Component
-@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class Rq {
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) 
+public class Rq {//request요청에 의해  rq객체를 무조건 생성하는게 아니라 로직상 필요시에만 rq객체를 만들어서 호출한 클래스에 맞춰서 rq객체를 보내줌
 	
 	@Getter
 	private boolean isLogined;
