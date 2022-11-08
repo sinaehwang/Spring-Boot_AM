@@ -2,10 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="ARTICLE DETAIL" />
 <%@ include file="../common/head.jspf"%>
+<%@ include file="../common/toastUIEditorLib.jspf"%>
 <script>
 	const params = {};
 	params.id = parseInt('${param.id}');
 </script>
+
 <script>
 	function ArticleDetail__increaseHitCount() {
 		const localStorageKey = 'article__' + params.id + '__alreadyView';
@@ -28,28 +30,6 @@
 	})
 </script>
 
-<script>
-	
-	let ReplyWrite__submitFormDone = false; //중복전송방지위해 false로 변수 선언
-	function ReplyWrite__submitForm(form) {
-	  
-	  if(ReplyWrite__submitFormDone){//중복전송이 true로 바껴있다면 아무것도 리턴하지않아 중복발송을 막아줌
-	    return;
-	  }
-	  
-	  form.body.value = form.body.value.trim();
-	  
-	  if(form.body.value.length==0) {
-	    alert('댓글내용을 입력해주세요');
-	    form.body.focus();//하이라이팅효과
-	    return;
-	  }
-	  
-	  ReplyWrite__submitFormDone =true;
-	  form.submit(); //폼전송실행
-	}
-
-</script>
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
@@ -115,9 +95,15 @@
 						<td>${article.title }</td>
 					</tr>
 					<tr>
-						<th>내용</th>
-						<td>${article.body }</td>
-					</tr>
+            <th>내용</th>
+            <td>
+              <div class="toast-ui-viewer">
+                <script type="text/x-template">
+${article.body}
+				</script>
+              </div>
+            </td>
+          </tr>
 				</tbody>
 			</table>
 		</div>
