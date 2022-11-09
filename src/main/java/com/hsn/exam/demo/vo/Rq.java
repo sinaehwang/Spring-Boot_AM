@@ -59,6 +59,13 @@ public class Rq {//request요청에 의해  rq객체를 무조건 생성하는�
 		resp.setContentType("text/html; charset=UTF-8");
 		print(Ut.jsHistoryBack(msg));
 	}
+	
+	public void printReplaceJs(String msg, String url) {
+		resp.setContentType("text/html; charset=UTF-8");
+		print(Ut.jsReplace(msg,url));
+		
+	}
+	
 
 	public void print(String str) {
 		try {
@@ -125,6 +132,8 @@ public class Rq {//request요청에 의해  rq객체를 무조건 생성하는�
 		
 		return Ut.getUriEncoded(getCurrentUri());
 	}
+
+
 	
 	
 }
