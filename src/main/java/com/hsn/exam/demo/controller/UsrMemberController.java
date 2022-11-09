@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hsn.exam.demo.service.MemberService;
@@ -73,7 +74,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpServletRequest req,String loginId, String loginPw, String afterLoginUri) {
+	public String doLogin(HttpServletRequest req,String loginId, String loginPw, @RequestParam(defaultValue = "/") String afterLoginUri) {
 		
 		if (Ut.empty(loginId)) {
 			//return ResultData.from("F-1", "아이디를 입력해주세요");

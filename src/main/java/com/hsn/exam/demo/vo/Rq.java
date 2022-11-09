@@ -132,7 +132,16 @@ public class Rq {//request요청에 의해  rq객체를 무조건 생성하는�
 		
 		return Ut.getUriEncoded(getCurrentUri());
 	}
+	
+	public String getLoginUri() { //URI를 정제하는 메소드실행
+		
+		return "../member/Login?afterLoginUri="+getAfterLoginUri();
+	}
 
+	public String getAfterLoginUri() {
+		return getEncodedCurrentUri();
+	}
+	
 
 	
 	

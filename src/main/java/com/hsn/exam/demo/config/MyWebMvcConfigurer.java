@@ -55,7 +55,6 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
     			ir.addPathPatterns("/usr/reply/doDelete");
     			ir.addPathPatterns("/usr/reply/modify");
     			ir.addPathPatterns("/usr/reply/doModify");
-    			ir.addPathPatterns("/usr/reply/modify");
     			
     			//요청이 실행되기전에 로그아웃이 필요함
     	ir = registry.addInterceptor(needLogoutInterceptor);

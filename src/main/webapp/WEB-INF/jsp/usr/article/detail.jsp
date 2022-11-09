@@ -120,7 +120,10 @@ ${article.body}
 			</c:if>
 		</div>
 <!-- 댓글작성시작 -->    
-        <div class="card w-full bg-base-100 shadow-xl mt-8 ">
+        <div class="card w-full bg-base-100 shadow-xl mt-8 px-3 ">
+        <div>
+            <div>댓글 작성</div>
+            <c:if test="${rq.logined }">
                 <div class="card-body">
                 <form class="table-box-type-1" method="POST" action="../reply/doWriteReply" onsubmit="ReplyWrite__submitForm(this); return false;"> <!-- 중복전송,내용미입력체크스크립트 -->
                 <input type="hidden" name="relTypeCode" value="article" />
@@ -132,8 +135,13 @@ ${article.body}
                   </div>
                </form>
                </div>
+          </c:if>
+          <c:if test="${rq.notLogined }">
+              <a class="btn-text-link btn  btn-ghost" href="${rq.loginUri }">로그인</a> 후 이용해주세요
+           </c:if>
+           </div>
 <!-- 댓글리스트시작 -->
-              <div class="container mx-auto px-3">
+              <div class="container mx-auto">
                 <h2>댓글 리스트(${repliesCount })</h2>
                 <table class="table table-fixed w-full">
                   <colgroup>
