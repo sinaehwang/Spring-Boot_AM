@@ -17,9 +17,7 @@ public class ReactionPointService {
 
 	public ResultData actorCanMakeReaction(int actorId, String relTypeCode, int relId) {
 
-		if (actorId == 0) {
-			return ResultData.from("F-1", "로그인후 다시 이용해주시기 바랍니다.");
-		}
+
 
 		int sumReactionPointByMemberId = reactionPointRepository.getSumReactionPointByMemberId(actorId, relTypeCode,
 				relId);
