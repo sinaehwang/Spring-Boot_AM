@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.hsn.exam.demo.util.Ut;
 import com.hsn.exam.demo.vo.Rq;
 
 //로그인을 미리 체크하는 역활을 함
@@ -22,7 +21,9 @@ public class NeedLoginIntercepter implements HandlerInterceptor {
 		
 		if(rq.isLogined()==false) {
 			
-			rq.printReplaceJs("로그인후 이용해주세요", "../member/Login");
+			String afterLoginUri = rq.getEncodedCurrentUri();
+			
+			rq.printReplaceJs("로그인후 이용해주세요", "../member/Login?afterLoginUri="+afterLoginUri);
 			
 			return false;
 			

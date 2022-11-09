@@ -68,7 +68,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpServletRequest req,String loginId, String loginPw) {
+	public String doLogin(HttpServletRequest req,String loginId, String loginPw, String afterLoginUri) {
 		
 		if (Ut.empty(loginId)) {
 			//return ResultData.from("F-1", "아이디를 입력해주세요");
@@ -94,7 +94,7 @@ public class UsrMemberController {
 		
 		rq.login(member);
 		
-		return Ut.jsReplace(Ut.f("%s님 로그인 성공", member.getName()), "/");
+		return Ut.jsReplace(Ut.f("%s님 로그인 성공", member.getName()), afterLoginUri);
 		
 	}
 	
