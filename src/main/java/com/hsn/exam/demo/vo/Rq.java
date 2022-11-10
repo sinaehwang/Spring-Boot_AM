@@ -138,7 +138,21 @@ public class Rq {// request요청에 의해 rq객체를 무조건 생성하는�
 
 		return "../member/Login?afterLoginUri=" + getAfterLoginUri();
 	}
+	
+	public String getLogoutUri() {
+		
+		String requestUri = req.getRequestURI();
 
+		/*
+		 * switch (requestUri) { //로그아웃이라면 접근할수없는 페이지주소들 case "/usr/article/write":
+		 * 
+		 * return ""; }
+		 */
+		
+		
+		return "../member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
+	}
+	
 	public String getAfterLoginUri() {
 
 		String requestUri = req.getRequestURI();
@@ -153,5 +167,13 @@ public class Rq {// request요청에 의해 rq객체를 무조건 생성하는�
 
 		return getEncodedCurrentUri(); 
 	}
+	
+
+	public String getAfterLogoutUri() {
+		
+		return getEncodedCurrentUri(); 
+	}
+
+
 
 }

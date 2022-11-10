@@ -113,7 +113,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req) {
+	public String doLogout(HttpServletRequest req,@RequestParam(defaultValue = "/") String afterLogoutUri) {
 		
 		
 		if(rq.isLogined()==false) {
@@ -123,7 +123,7 @@ public class UsrMemberController {
 		
 		rq.logout();
 		
-		return Ut.jsReplace("로그아웃되었습니다.", "/");
+		return Ut.jsReplace("로그아웃되었습니다.", afterLogoutUri);
 	}
 	
 	@RequestMapping("/usr/member/Mypage")
