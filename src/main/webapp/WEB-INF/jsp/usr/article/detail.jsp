@@ -133,6 +133,7 @@ ${article.body}
             <c:if test="${rq.logined }">
                 <div class="card-body">
                 <form class="table-box-type-1" method="POST" action="../reply/doWriteReply" onsubmit="ReplyWrite__submitForm(this); return false;"> <!-- 중복전송,내용미입력체크스크립트 -->
+                <input type="hidden" name="replaceUri" value="${rq.currentUri }" /> <!-- 해당detailUri값에 usr/detail/id 값이 남아지게됨 -->
                 <input type="hidden" name="relTypeCode" value="article" />
                 <input type="hidden" name="relId" value="${article.id }" />
                   <h2 class="card-title">댓글💬</h2>
