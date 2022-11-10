@@ -77,8 +77,8 @@
   <div class="container mx-auto px-3 table-box-type-1">
     <form class="table-box-type-1"
       onsubmit="MemberdoJoin__submitForm(this); return false;"
-      method="POST" action="../member/doJoin"
-    >
+      method="POST" action="../member/doJoin">
+      <input type="hidden" name = "afterLoginUri"  value = ${param.afterLoginUri }/>
       <table>
         <colgroup>
           <col width="200" />
@@ -118,11 +118,17 @@
           </tr>
           <tr>
             <th>연락처</th>
-            <td>${member.cellphoneNum }</td>
+            <td>            
+            <input required="required" class="w-full input input-bordered  max-w-xs" type="text" name=cellphoneNum
+                placeholder="사용하실 연락처를 입력해주세요"
+              /></td>
           </tr>
           <tr>
             <th>e-mail</th>
-            <td>${member.email }</td>
+            <td>
+            <input required="required" class="w-full input input-bordered  max-w-xs" type="text" name=email
+                placeholder="사용하실 이메일을 입력해주세요"
+              /></td>
           </tr>
 
           <tr>
