@@ -181,7 +181,7 @@ ${article.body}
                         <td>${reply.extra__writerName}</td>
                         <td>${reply.goodReactionPoint}</td>
                         <td class="text-left">${reply.getForPrintBody()}</td>
-                        <td><a href="../reply/modify?id=${reply.id }" class="btn btn-xs">수정</a></td>
+                        <td><a href="../reply/modify?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}" class="btn btn-xs">수정</a></td>
                         <td><a href="../reply/doDelete?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" class="btn btn-xs">삭제</a></td>
                       </tr>
                     </c:forEach>
