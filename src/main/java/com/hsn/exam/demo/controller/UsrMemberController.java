@@ -30,8 +30,7 @@ public class UsrMemberController {
 	}
 	
 	
-	@RequestMapping("/usr/member/Join")
-	@ResponseBody
+	@RequestMapping("/usr/member/join")
 	public String Join() {
 		
 		return "usr/member/join";
