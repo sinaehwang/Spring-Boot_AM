@@ -180,6 +180,11 @@ public class Rq {// request요청에 의해 rq객체를 무조건 생성하는�
 		return getEncodedCurrentUri(); 
 	}
 
+	public String getArticleDetailUriFromArticleList(Article article) {
+		return "../article/detail?id="+article.getId()+"&listUri="+getEncodedCurrentUri();
+		//기존detail 주소에 listUri주소까지 추가해줌
+		
+	}
 
 
 }

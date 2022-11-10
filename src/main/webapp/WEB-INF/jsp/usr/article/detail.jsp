@@ -109,7 +109,14 @@ ${article.body}
 		</div>
         <br />
 		<div class="btns">
+        
+        <c:if test="${empty param.listUri }"><!-- listUri파라미터가 없다면 기존과동일한 뒤로가기형태 -->
 			<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+        </c:if>
+        
+        <c:if test="${not empty param.listUri }"><!-- listUri파라미터가 있다면 listUri를 가지고가도록만듬 -->
+             <a class="btn-text-link btn btn-active btn-ghost" href="${param.listUri}">뒤로가기</a>
+        </c:if>
 			<c:if test="${article.extra__actorCanModify }">
 				<a class="btn-text-link btn btn-active btn-ghost" href="../article/modify?id=${article.id }">수정</a>
 			</c:if>
