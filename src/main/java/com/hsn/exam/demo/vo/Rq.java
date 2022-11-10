@@ -155,7 +155,7 @@ public class Rq {// request요청에 의해 rq객체를 무조건 생성하는�
 	
 	public String getJoinUri() { // URI를 정제하는 메소드실행
 
-		return "../member/join?afterLoginUri=" + getAfterLoginUri();
+		return "../member/Login?afterLoginUri=" + getAfterLoginUri();
 	}
 	
 	public String getAfterLoginUri() {
@@ -167,7 +167,8 @@ public class Rq {// request요청에 의해 rq객체를 무조건 생성하는�
 		case "/usr/member/join":
 		case "/usr/member/findLoginId":
 		case "/usr/member/findLoginPw":
-			return Ut.getUriEncoded(paramMap.get("afterLoginUri"));
+			//return Ut.getUriEncoded(paramMap.get("afterLoginUri"));
+			return Ut.getUriEncoded(Ut.getStrAttr(paramMap,"afterLoginUri",""));//map에서 afterLoginUri속성을 가져오는메소드를만듬(map에서 afterLoginUri이 없으면 빈칸을리턴함)
 		}
 
 		return getEncodedCurrentUri(); 
