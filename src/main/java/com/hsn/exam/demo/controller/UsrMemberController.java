@@ -72,7 +72,7 @@ public class UsrMemberController {
 		
 		Member member = memberService.getMemberById((int) joinRd.getData1());
 		
-		String afterJoinUri = "../member/Login?afterLoginUri=?"+Ut.getUriEncoded(afterLoginUri);//회원가입후 로그인페이지로 돌려보내기
+		String afterJoinUri = "../member/Login?afterLoginUri=" + Ut.getUriEncoded(afterLoginUri);//회원가입후 로그인페이지로 돌려보내기
 		
 		return rq.jsReplace(Ut.f("%s님 회원가입이 완료됬습니다.", member.getName()), afterJoinUri);
 	}
@@ -118,17 +118,12 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout(HttpServletRequest req,@RequestParam(defaultValue = "/") String afterLogoutUri) {
+	public String doLogout(@RequestParam(defaultValue = "/") String afterLogoutUri) {
 		
-		
-		if(rq.isLogined()==false) {
-			//return ResultData.from("F-3", "이미 로그아웃상태입니다.");
-			return Ut.jsHistoryBack("이미 로그아웃상태입니다.");
-		}
 		
 		rq.logout();
 		
-		return Ut.jsReplace("로그아웃되었습니다.", afterLogoutUri);
+		return rq.jsReplace("로그아웃되었습니다.", afterLogoutUri);
 	}
 	
 	@RequestMapping("/usr/member/Mypage")

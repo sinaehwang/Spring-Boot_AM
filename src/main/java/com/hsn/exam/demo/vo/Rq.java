@@ -155,7 +155,7 @@ public class Rq {// request요청에 의해 rq객체를 무조건 생성하는�
 	
 	public String getJoinUri() { // URI를 정제하는 메소드실행
 
-		return "../member/Login?afterLoginUri=" + getAfterLoginUri();
+		return "../member/join?afterLoginUri=" + getAfterLoginUri();
 	}
 	
 	public String getAfterLoginUri() {
