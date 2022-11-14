@@ -4,8 +4,59 @@
 <%@ include file="../common/head.jspf"%>
 <%@ page import="com.hsn.exam.demo.util.Ut"%>
 
+
+<!-- 아이디 중복체크 ajax로직 -->
 <script>
-  let MemberdoJoin__submitFormDone = false;
+
+const MemberdoJoin__submitFormDone = false;
+
+let JoinForm__validLoginId = "";//중복체크 여부 판단하기 위해서
+
+function JoinForm__checkLoginIdDup(obj) {
+	const form = $(obj).closest('form').get(0); //가장가까운 form을 찾아간다
+	
+	form.loginId.value = form.loginId.value.trim();
+	
+	if(form.loginId.value.length ==0 ){
+	  alert('아이디를 입력해주세요');
+	  form.loginId.focus();
+	  return;
+	}
+	
+	var url = 'getLoginIdDup?loginId=' + form.loginId.value;
+	
+	$.get(
+		'getLoginIdDup',
+		{
+		  loginId:form.loginId.value
+		},
+		function(data){
+		  
+		  let colorClass = 'text-blue-500';
+			if ( data.fail ) {
+				colorClass = 'text-red-500';
+			}
+			
+			$('.loginIdInputMsg').html("<span class='" + colorClass + "'>" + data.msg + "</span>");
+		
+			//alert(data.msg);
+		
+		  if(data.fail) {
+		    form.loginId.focus();
+		    JoinForm__validLoginId = '';
+		  }
+			else {
+				JoinForm__validLoginId = data.data1Name;
+				form.loginPw.focus();
+		  }
+		},
+		'json'
+	);
+	
+}
+
+
+
 
   function MemberdoJoin__submitForm(form) {
 
@@ -19,6 +70,11 @@
       alert('아이디를 입력해주세요.')
       return;
     }
+    
+	if ( form.loginId.value != JoinForm__validLoginId ) { //실제입력한 id와 중복체크로 전송된 id가 다르다면 다시 중복체크 과정을 거치도록
+		alert('로그인아이디 중복체크를해주세요.');
+		return;
+	}
 
     form.loginPw.value = form.loginPw.value.trim();
 
@@ -91,8 +147,10 @@
             <th>아이디</th>
             <td>
             <input required="required" class="w-full input input-bordered  max-w-xs" type="text" name=loginId
-				placeholder="사용하실 아이디를 입력해주세요"
-				/></td>
+				placeholder="사용하실 아이디를 입력해주세요"/>
+            <input type="button"  onclick="JoinForm__checkLoginIdDup(this);" class="btn btn-outline btn-primary"  value="중복체크"/>
+            <div class = "loginIdInputMsg mt-2"></div>
+            </td>
           </tr>
           <tr>
             <th>비밀번호</th>
