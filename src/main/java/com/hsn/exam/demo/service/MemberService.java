@@ -1,5 +1,7 @@
 package com.hsn.exam.demo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.hsn.exam.demo.repository.MemberRepository;
@@ -80,5 +82,16 @@ public class MemberService {
 		}
 		
 		 return ResultData.from("S-1", "인증번호코드 일치 확인완료");
+	}
+
+	public int getMemberCount(int authLevel, String searchKeywordTypeCode, String searchKeyword) {
+		
+		
+	 return memberRepository.getMemberCount(authLevel, searchKeywordTypeCode, searchKeyword);
+	 
+	}
+
+	public List<Member> getForPrintMembers(int authLevel, String searchKeywordTypeCode, String searchKeyword, int page) {
+		return memberRepository.getForPrintMembers(authLevel, searchKeywordTypeCode, searchKeyword,page);
 	}
 }
