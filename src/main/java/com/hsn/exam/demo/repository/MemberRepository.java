@@ -81,32 +81,7 @@ public interface MemberRepository {
 	
 	@Select("""
 			<script>
-			SELECT COUNT(*) AS cnt
-			FROM `member` AS M
-			WHERE 1
-			<if test="authLevel != 0">
-				AND M.authLevel = #{authLevel}
-			</if>
-			<if test="searchKeyword != ''">
-				<choose>
-					<when test="searchKeywordTypeCode == 'loginId'">
-						AND M.loginId LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchKeywordTypeCode == 'name'">
-						AND M.name LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchKeywordTypeCode == 'nickname'">
-						AND M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<otherwise>
-						AND (
-							M.loginId LIKE CONCAT('%', #{searchKeyword}, '%')
-							OR M.name LIKE CONCAT('%', #{searchKeyword}, '%')
-							OR M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
-							)
-					</otherwise>
-				</choose>
-			</if>
+				SELECT COUNT(*) FROM `member`
 			</script>
 							""")
 	int getMemberCount(int authLevel, String searchKeywordTypeCode, String searchKeyword);
@@ -114,35 +89,29 @@ public interface MemberRepository {
 	
 	@Select("""
 			<script>
-			 
-						SELECT M.*
-						FROM article AS A
-						LEFT JOIN `member` AS M
-						ON A.memberId= M.id 
+						SELECT M.* FROM `member` AS M
 						WHERE 1
-						<if test="boardId != 0">
-							AND A.boardId = #{boardId}
-						</if>
 						<if test="searchKeyword != ''">
 							<choose>
-								<when test="searchKeywordTypeCode == 'title'">
-									AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+								<when test="searchKeywordTypeCode == 'loginId'">
+									AND M.loginId LIKE CONCAT('%', #{searchKeyword}, '%')
 								</when>
-								<when test="searchKeywordTypeCode == 'body'">
-									AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+								<when test="searchKeywordTypeCode == 'name'">
+									AND M.name LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordTypeCode == 'nickname'">
+									AND M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
 								</when>
 								<otherwise>
 									AND (
-										A.title LIKE CONCAT('%', #{searchKeyword}, '%')
-										OR A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+										M.loginId LIKE CONCAT('%', #{searchKeyword}, '%')
+										OR M.name LIKE CONCAT('%', #{searchKeyword}, '%')
+										OR M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
 										)
 								</otherwise>
 							</choose>
 						</if>
-						ORDER BY A.id DESC
-						<if test="limitTake != -1">
-							LIMIT #{limitStart}, #{limitTake}
-						</if>
+						ORDER BY M.id DESC
 					</script>
 							""")
 	

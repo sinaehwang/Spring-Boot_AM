@@ -47,6 +47,9 @@ public class AdmMemberController {
 		List<Member> members = memberService.getForPrintMembers(authLevel, searchKeywordTypeCode, searchKeyword,page);
 		
 		
+		model.addAttribute(members);
+		
+		model.addAttribute(memberCount);
 		
 		return "adm/member/list";
 		

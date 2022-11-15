@@ -92,6 +92,7 @@ public class MemberService {
 	}
 
 	public List<Member> getForPrintMembers(int authLevel, String searchKeywordTypeCode, String searchKeyword, int page) {
+		
 		return memberRepository.getForPrintMembers(authLevel, searchKeywordTypeCode, searchKeyword,page);
 	}
 }
