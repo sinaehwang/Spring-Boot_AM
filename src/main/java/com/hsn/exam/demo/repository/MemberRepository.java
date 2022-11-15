@@ -111,7 +111,7 @@ public interface MemberRepository {
 							""")
 	int getMemberCount(int authLevel, String searchKeywordTypeCode, String searchKeyword);
 
-	//여기서부터
+	
 	@Select("""
 			<script>
 			 

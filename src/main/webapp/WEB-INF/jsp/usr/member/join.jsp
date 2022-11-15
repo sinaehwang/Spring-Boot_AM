@@ -32,12 +32,12 @@ function JoinForm__checkLoginIdDup(obj) {
 		},
 		function(data){
 		  
-		  let colorClass = 'text-blue-500';
+		  let Color = 'text-blue-500';
 			if ( data.fail ) {
-				colorClass = 'text-red-500';
+				Color = 'text-red-500';
 			}
 			
-			$('.loginIdInputMsg').html("<span class='" + colorClass + "'>" + data.msg + "</span>");
+			$('.loginIdInputMsg').html("<span class='" + Color + "'>" + data.msg + "</span>");
 		
 			//alert(data.msg);
 		
@@ -125,6 +125,27 @@ function JoinForm__checkLoginIdDup(obj) {
 
     form.submit();
   }
+  
+ 
+  
+  function passConfirm() {
+		/* 비밀번호, 비밀번호 확인 입력창에 입력된 값을 비교해서 같다면 비밀번호 일치, 그렇지 않으면 불일치 라는 텍스트 출력.*/
+		/* document : 현재 문서를 의미함. 작성되고 있는 문서를 뜻함. */
+		/* getElementByID('아이디') : 아이디에 적힌 값을 가진 id의 value를 get을 해서 password 변수 넣기 */
+			var password = document.getElementById('loginPw');					//비밀번호 
+			var passwordConfirm = document.getElementById('loginPwConfirm');	//비밀번호 확인 값
+			var confrimMsg = document.getElementById('confirmMsg');				//확인 메세지
+			var correctColor = "#00ff00";	//맞았을 때 출력되는 색깔.
+			var wrongColor ="#ff0000";	//틀렸을 때 출력되는 색깔
+			
+			if(password.value == passwordConfirm.value){//password 변수의 값과 passwordConfirm 변수의 값과 동일하다.
+				confirmMsg.style.color = correctColor;/* span 태그의 ID(confirmMsg) 사용  */
+				confirmMsg.innerHTML ="비밀번호 일치";/* innerHTML : HTML 내부에 추가적인 내용을 넣을 때 사용하는 것. */
+			}else{
+				confirmMsg.style.color = wrongColor;
+				confirmMsg.innerHTML ="비밀번호 불일치";
+			}
+		}
 </script>
 
 
@@ -146,7 +167,7 @@ function JoinForm__checkLoginIdDup(obj) {
           <tr>
             <th>아이디</th>
             <td>
-            <input required="required" class="w-full input input-bordered  max-w-xs" type="text" name=loginId
+            <input required="required" class="w-full input input-bordered  max-w-xs" type="text" name=loginId 
 				placeholder="사용하실 아이디를 입력해주세요"/>
             <input type="button"  onclick="JoinForm__checkLoginIdDup(this);" class="btn btn-outline btn-primary"  value="중복체크"/>
             <div class = "loginIdInputMsg mt-2"></div>
@@ -155,10 +176,20 @@ function JoinForm__checkLoginIdDup(obj) {
           <tr>
             <th>비밀번호</th>
             <td>
-            <input required="required" class="w-full input input-bordered  max-w-xs" type="text" name=loginPw
+            <input required="required" class="w-full input input-bordered  max-w-xs"  type="text" name=loginPw id=loginPw
                 placeholder="사용하실 비밀번호를 입력해주세요"
               /></td>
           </tr>
+          <tr>
+            <th>비밀번호확인</th>
+            <td>
+            <input required="required" class="w-full input input-bordered  max-w-xs" onkeyup="passConfrim()" type="text" name=loginPwConfirm id=loginPwConfirm
+                placeholder="비밀번호를 재입력해주세요"
+              />
+              <span id ="confirmMsg"></span>
+              </td>
+          </tr>
+          
           <tr>
             <th>이름</th>
             <td>            
