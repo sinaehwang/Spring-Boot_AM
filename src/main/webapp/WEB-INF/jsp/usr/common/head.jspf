@@ -26,7 +26,7 @@
 
 	<header>
 		<div class="h-20 flex container mx-auto text-4xl">
-			<a href="#" class = " flex items-center px-3">
+			<a href="/" class = " flex items-center px-3">
 			<span>로고</span>
 			</a>
 			
@@ -80,7 +80,12 @@
                         <span>MYPAGE</span>
                       </a>
                     </li>
-        </c:if>
+                </c:if>
+                <li class="hover:underline">
+                    <a class="h-full px-3 flex items-center" href="/usr/home/APITest2">
+                      <span>API</span>
+                    </a>
+                </li>
 			</ul>
 		</div>
 	</header>
